@@ -36,10 +36,7 @@ export default function App() {
 	tabBarActiveTintColor: 'royalblue',
    	tabBarInactiveTintColor: 'gray',
     headerShown: false,
-    tabBarStyle: { position: 'absolute' },
-    tabBarBackground: () => (
-      <View style={[styles.navBar, {backgroundColor: 'black'}]}></View>
-    ),
+    tabBarStyle: { position: 'absolute', backgroundColor: 'black' },
         })}
 >
         <Tab.Screen name="Home" component={HomeScreen} />
