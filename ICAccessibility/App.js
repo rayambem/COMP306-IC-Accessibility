@@ -3,68 +3,9 @@ import { View, Text, StyleSheet, TouchableOpacity, TextInput, ImageBackground} f
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
-import Map from './Map'
+import MapScreen from './Map'
+import HomeScreen from './home';
 
-const HomeScreen = () => {
-
-  let pic = { uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEZ2rLMNmedcJfmp3cQEr_AZ2N2ICL8deY4lwcFuu-yrWGy6aBcKZXkFM&s' };
-
-  return (
-
-    <ImageBackground source={pic} style={styles.backgroundImage} imageStyle={{ resizeMode: 'contain' }}>
-      <View style={styles.container}>
-        
-        {/* Header */}
-        <View style={styles.header}>
-          <Text style={styles.headerTitle}>Ithaca College</Text>
-        </View>
-
-        {/* Accessibility Notices */}
-        <View style={styles.noticeBox}>
-          <Text style={styles.noticeText}>Accessibility Notices</Text>
-          <Text style={styles.noticeCount}>3</Text>
-        </View>
-
-        {/* Navigation Form */}
-        <View style={styles.form}>
-          <Text style={styles.formLabel}>Navigate from:</Text>
-          <TextInput style={styles.input} placeholder="Building A" />
-
-          <Text style={styles.formLabel}>To:</Text>
-          <TextInput style={styles.input} placeholder="Building B" />
-
-          <Text style={styles.formLabel}>Mobility:</Text>
-          <TextInput style={styles.input} placeholder="Select Mobility" />
-        </View>
-
-        {/* Go Button */}
-        <TouchableOpacity style={styles.goButton}>
-          <Text style={styles.goButtonText}>GO</Text>
-        </TouchableOpacity>
-
-
-        {/* Bottom Navigation 
-        <View style={styles.bottomNav}>
-  <TouchableOpacity style={styles.navButton}>
-    <Icon name="home-outline" size={24} color="#FFFFFF" />
-  </TouchableOpacity>
-  <TouchableOpacity style={styles.navButton}>
-    <Icon name="location-outline" size={24} color="#FFFFFF" />
-  </TouchableOpacity>
-  <TouchableOpacity style={styles.navButton}>
-    <Icon name="settings-outline" size={24} color="#FFFFFF" />
-  </TouchableOpacity>
-</View>
-*/}
-      </View>
-    </ImageBackground>
-  );
-};
-
-const MapScreen = () => {
-  return <Map/>
-  
-}
 
 const SavedRoutesScreen = () => {
   <Text>ROUTES</Text>
@@ -208,6 +149,7 @@ const styles = StyleSheet.create({
   },
   navBar: {
     backgroundColor: '#000000',
+    width: '100',
   }
 });
 

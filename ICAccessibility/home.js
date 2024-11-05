@@ -42,17 +42,7 @@ const HomeScreen = () => {
 
 
         {/* Bottom Navigation */}
-        <View style={styles.bottomNav}>
-  <TouchableOpacity style={styles.navButton}>
-    <Icon name="home-outline" size={24} color="#FFFFFF" />
-  </TouchableOpacity>
-  <TouchableOpacity style={styles.navButton}>
-    <Icon name="location-outline" size={24} color="#FFFFFF" />
-  </TouchableOpacity>
-  <TouchableOpacity style={styles.navButton}>
-    <Icon name="settings-outline" size={24} color="#FFFFFF" />
-  </TouchableOpacity>
-</View>
+        
 
       </View>
     </ImageBackground>

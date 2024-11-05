@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import MapView, { UrlTile } from 'react-native-maps';
 import { StyleSheet, View } from 'react-native';
 
-export default function Map() {
+export default function MapScreen() {
 	useEffect(() => {
 		(async () => {
 		  let { status } = await Location.requestForegroundPermissionsAsync();
