@@ -1,32 +1,9 @@
-// import { StatusBar } from 'expo-status-bar';
-// import { StyleSheet, Text, View } from 'react-native';
-
-// export default function App() {
-//   return (
-//     <View style={styles.container}>
-//       <Text>Open up App.js to start working on your app!</Text>
-//       <StatusBar style="auto" />
-//     </View>
-//   );
-// }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#fff',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-// });
-
-
-
-
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, ImageBackground} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Map from './Map'
 
 const HomeScreen = () => {
 
@@ -85,7 +62,8 @@ const HomeScreen = () => {
 };
 
 const MapScreen = () => {
-  <Text>MAP</Text>
+  return <Map/>
+  
 }
 
 const SavedRoutesScreen = () => {
