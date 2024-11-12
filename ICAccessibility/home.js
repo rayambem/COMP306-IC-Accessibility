@@ -1,9 +1,12 @@
 
-import React from 'react';
+import React, {useState} from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, ImageBackground} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import AccessibilityNotices from './AccessibilityNotices';
 
 const HomeScreen = () => {
+
+  const [modalVisible, setModalVisible] = useState(false);
 
   let pic = { uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEZ2rLMNmedcJfmp3cQEr_AZ2N2ICL8deY4lwcFuu-yrWGy6aBcKZXkFM&s' };
 
@@ -18,10 +21,12 @@ const HomeScreen = () => {
         </View>
 
         {/* Accessibility Notices */}
-        <View style={styles.noticeBox}>
+        <TouchableOpacity style={styles.noticeBox} onPress={() => setModalVisible(true)}>
           <Text style={styles.noticeText}>Accessibility Notices</Text>
-          <Text style={styles.noticeCount}>3</Text>
-        </View>
+          <View style={styles.noticeCircle}>
+            <Text style={styles.noticeCount}>3</Text>
+          </View>
+        </TouchableOpacity>
 
         {/* Navigation Form */}
         <View style={styles.form}>
@@ -41,11 +46,15 @@ const HomeScreen = () => {
         </TouchableOpacity>
 
 
-        {/* Bottom Navigation */}
+        {/* Accessibility Notices Modal */}
+        <AccessibilityNotices visible={modalVisible} onClose={() => setModalVisible(false)} />
+        
         
 
       </View>
     </ImageBackground>
+
+    
   );
 };
 
@@ -85,14 +94,22 @@ const styles = StyleSheet.create({
     width: '90%',
     justifyContent: 'space-between',   
   },
+  noticeCircle: {
+    backgroundColor: 'red', 
+    width: 30,              
+    height: 30,             
+    borderRadius: 15,       
+    justifyContent: 'center', 
+    alignItems: 'center',   
+  },
+  noticeCount: {
+    color: '#FFFFFF',       
+    fontSize: 17,           
+    fontWeight: 'bold',
+  },
   noticeText: {
     color: '#FFFFFF',
     fontSize: 16,
-  },
-  noticeCount: {
-    color: '#FFFFFF',
-    fontSize: 20,
-    fontWeight: 'bold',
   },
   form: {
     backgroundColor: 'rgba(237, 237, 237, 0.8)',
@@ -100,7 +117,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     width: '90%',
     marginVertical: 5,
-    
     
   },
   formLabel: {
