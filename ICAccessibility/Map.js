@@ -6,7 +6,9 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
-export default function MapScreen() {
+import styles from './styles.js';
+
+export default function MapScreen({navigation, route}) {
 	const buildingData = [
 		{ id: 1, name: 'Library', latitude: 42.4229, longitude: -76.4955 },
 		{ id: 2, name: 'Student Center', latitude: 42.4232, longitude: -76.4941 },
@@ -82,7 +84,7 @@ export default function MapScreen() {
 					style={styles.buildingSearchBar}
 					placeholder='Search for destination...'
 				/>
-				<TouchableOpacity style={styles.goButtonContainer} activeOpacity={0.9}>
+				<TouchableOpacity style={[styles.goButtonContainer, {marginTop:8}] } activeOpacity={0.9}>
 					<Text style={styles.goButton}>
 						GO
 					</Text>
@@ -110,101 +112,3 @@ export default function MapScreen() {
 		</View>
 	);
 }
-
-const styles = StyleSheet.create({
-container: {
-	flex: 1,
-	alignItems: 'center',
-	// paddingTop: 0,
-},
-topButtonsContainer: {
-	flex: 2,
-	flexDirection: 'row',
-	gap: 10,
-	zIndex: 8,
-	position: 'absolute',
-	top: 60,
-	left: 20,
-},
-topButton: {
-	color: 'white',
-	backgroundColor: '#013159',
-	width: 60,
-	height: 60,
-	borderRadius: 100,
-	alignItems: 'center',
-	justifyContent: 'center',
-	borderWidth: 1,
-	borderColor: 'white'
-},
-map: {
-	width: '100%',
-	height: '100%',
-},
-bottomMenu: {
-	zIndex: 10,
-	position: 'absolute',
-	bottom: 0,
-	width: '80%',
-	height: 350,
-	backgroundColor: '#fff',
-	borderTopLeftRadius: 20,
-	borderTopRightRadius: 20,
-	alignItems: 'center',
-	paddingTop: 15,
-	gap: 8
-},
-buildingSearchBar: {
-	width: '90%',
-	borderWidth: 1,
-	borderBlockColor: '#013159',
-	padding: 10,
-	borderRadius: 5,
-},
-goButtonContainer: {
-	marginTop: 5,
-	backgroundColor: '#FFBB00',
-	width: '90%',
-	height: 50,
-	alignItems: 'center',
-	borderRadius: 5,
-	justifyContent: 'center',
-	shadowColor: 'gray',
-	shadowOffset: 2,
-	shadowOpacity: 60
-},
-goButton: {
-	fontSize: 30,
-	fontWeight: 'bold',
-	color: '#fff'
-},
-menuLinks: {
-	marginTop: 10,
-	flexDirection: 'row',
-	gap: 20,
-	height: 30,
-},
-fpButtonContainer: {
-	backgroundColor: '#013159',
-	padding: 12,
-	width: '90%',
-	borderRadius: 100
-},
-fpButton: {
-	color: '#fff',
-	textAlign: 'center'
-},
-markerLabelContainer: {
-	alignItems: 'center',
-	backgroundColor: 'rgba(0, 0, 0, 0.5)',
-	paddingVertical: 2,
-	paddingHorizontal: 5,
-	borderRadius: 5,
-	marginBottom: 15,
-},
-markerLabelText: {
-	color: 'white',
-	fontSize: 12,
-	fontWeight: 'bold',
-},
-});
