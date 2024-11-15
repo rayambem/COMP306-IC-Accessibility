@@ -10,6 +10,7 @@ const styles = StyleSheet.create({
     mainContainer: {
         alignItems: 'center',
       backgroundColor: 'rgba(255, 255, 255, 0.8)',
+      height:'100%',
     },
     container: {
       flex: 1,
@@ -21,7 +22,7 @@ const styles = StyleSheet.create({
     header: {
       width: '100%',
       padding: 15,
-      paddingTop: 50,
+      paddingTop: 30,
       backgroundColor: 'rgba(31, 31, 31, 0.7)',
       alignItems: 'center',
     },
@@ -298,6 +299,17 @@ const styles = StyleSheet.create({
         alignSelf:'flex-start',
         justifyContent:'flex-start',
         
+      },
+      routeTitle: {
+        fontSize:17,
+      },
+      sectionHeader: {
+        textAlign:'left',
+        fontSize:28,
+        fontWeight:'bold',
+        alignSelf:'flex-start',
+        marginVertical:15,
+        marginLeft:20,
       },
 
       bold: {
