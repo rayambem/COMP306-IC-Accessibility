@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
 import MapScreen from './Map'
-import HomeScreen from './home';
+import HomeScreen from './Home';
 import SavedRoutesScreen from './SavedRoutes';
 
 

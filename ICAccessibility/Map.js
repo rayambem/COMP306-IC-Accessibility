@@ -10,7 +10,7 @@ import styles from './styles.js';
 
 export default function MapScreen({navigation, route}) {
 	const buildingData = [
-		{ id: 1, name: 'Library', latitude: 42.4229, longitude: -76.4955 },
+		{ id: 1, name: 'Library', latitude: 42.42149429751386, longitude: -76.49496532916343 },
 		{ id: 2, name: 'Student Center', latitude: 42.4232, longitude: -76.4941 },
 		{ id: 3, name: 'Gym', latitude: 42.4238, longitude: -76.4937 },
 		// Add more buildings here
@@ -37,43 +37,48 @@ export default function MapScreen({navigation, route}) {
 				</TouchableOpacity>
 			</View>
 			<MapView
-				style={styles.map}
+				style={[styles.map, { backgroundColor: '#E5E5E5' }]}  // Light gray background
 				initialRegion={{
 					latitude: 42.4227,
-					longitude: -76.4949,
+					longitude: -77.4949,
 					latitudeDelta: 0.01,
 					longitudeDelta: 0.01,
 				}}
-
-				// Remove UrlTile component to allow satellite map version to show, I'm not sure why the conflict happens
-				// mapType="satellite"
 				showsPointsOfInterest={false}
 				showsBuildings={false}
 				showsCompass={false}
 				showsTraffic={false}
 				showsIndoors={false}
-
-				googleMapId=''
+				mapType="standard"  // Changed to standard
+				liteMode={true}     // Enable lite mode
 			>
+				<UrlTile
+					urlTemplate="https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoicmF5YW1iZW0iLCJhIjoiY20ydXFnemgxMDRkMDJqb2s1M3dxMWdiaiJ9.dsYaHzxdNIZzGHeYHQ7BBw"
+					maximumZ={5}
+					minimumZ={8}
+					flipY={false}
+					zIndex={99}
+					tileSize={512}        // Increased tile size for retina
+					tileCachePath="mapbox" // Add tile caching
+					tileCacheMaxAge={60 * 60 * 24 * 7} // Cache for a week
+					opacity={1}            // Full opacity
+					loadingBackgroundColor="transparent"
+					loadingEnabled={true}
+					shouldReplaceMapContent={true}  // This helps prevent the base map from showing
+				/>
+				
 				{buildingData.map((building) => (
 					<Marker
 						key={building.id}
 						coordinate={{ latitude: building.latitude, longitude: building.longitude }}
 						title={building.name}
+						zIndex={100}  // Ensure markers stay on top
 					>
 						<View style={styles.markerLabelContainer}>
             				<Text style={styles.markerLabelText}>{building.name}</Text>
         				</View>
 					</Marker>
 				))}
-				
-					<UrlTile
-					urlTemplate="https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoicmF5YW1iZW0iLCJhIjoiY20ydXFnemgxMDRkMDJqb2s1M3dxMWdiaiJ9.dsYaHzxdNIZzGHeYHQ7BBw"
-					maximumZ={19}
-					flipY={false}
-					zIndex={1000}
-					/>
-				
 			</MapView>
 			<View style={styles.bottomMenu}>
 				<TextInput
