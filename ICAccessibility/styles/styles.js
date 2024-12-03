@@ -191,16 +191,19 @@ map: {
 	height: '100%',
 },
 bottomMenu: {
+	display: 'flex',
 	zIndex: 10,
 	position: 'absolute',
 	bottom: 0,
 	width: '80%',
-	height: 350,
+	height: 'auto',
+	minHeight: 'auto',
 	backgroundColor: '#fff',
 	borderTopLeftRadius: 20,
 	borderTopRightRadius: 20,
 	alignItems: 'center',
 	padding: 15,
+	paddingBottom: 100,
 	gap: 8
 },
 buildingSearchBar: {
@@ -247,14 +250,14 @@ markerLabelContainer: {
 	alignItems: 'center',
 	backgroundColor: 'rgba(0, 0, 0, 0.5)',
 	paddingVertical: 2,
-	paddingHorizontal: 5,
+	paddingHorizontal: 8,
 	borderRadius: 5,
 	marginBottom: 15,
 },
 markerLabelText: {
 	color: 'white',
-	fontSize: 12,
-	fontWeight: 'bold',
+	fontSize: 18,
+	fontWeight: 'normal',
 },
 bottomNav: {
 	flexDirection: 'row',
