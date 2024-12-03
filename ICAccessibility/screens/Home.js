@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, ImageBackground} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import AccessibilityNotices from './AccessibilityNotices.js';
-import styles from './styles.js';
+import styles from '../styles/styles.js';
 import { Picker } from '@react-native-picker/picker';
 
 const HomeScreen = ({navigation, route}) => {

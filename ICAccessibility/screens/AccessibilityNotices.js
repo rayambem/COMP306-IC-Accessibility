@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { View, Text, Modal, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
-import styles from './styles.js';
+import styles from '../styles/styles.js';
 
 const AccessibilityNotices = ({ visible, onClose }) => {
   return (

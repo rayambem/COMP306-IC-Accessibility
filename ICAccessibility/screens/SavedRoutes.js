@@ -4,8 +4,8 @@ import { View, Text, StyleSheet, TouchableOpacity, TextInput, ImageBackground, F
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
-import AccessibilityNotices from './AccessibilityNotices';
-import styles from './styles.js';
+import AccessibilityNotices from './AccessibilityNotices.js';
+import styles from '../styles/styles.js';
 
 const SavedRoutesScreen = ({navigation, route}) => {
   const routes = [{ id: 1, origin: 'Park School', destination: 'williams Hall', travelTime: 3, mobilityLevel: 'Full Mobility' },
