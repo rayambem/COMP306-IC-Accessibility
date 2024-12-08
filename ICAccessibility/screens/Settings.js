@@ -68,7 +68,7 @@ const SettingsScreen = ({ navigation }) => {
   );
 };
 
-// Styling defined in the same file
+
 const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
