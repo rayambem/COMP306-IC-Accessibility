@@ -5,7 +5,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
 import AccessibilityNotices from './AccessibilityNotices';
-import styles from './styles.js';
+import styles from './styles/global.js';
+import routesStyles from './styles/routesStyle.js';
 
 const SavedRoutesScreen = ({navigation, route}) => {
   const routes = [{ id: 1, origin: 'Park School', destination: 'williams Hall', travelTime: 3, mobilityLevel: 'Full Mobility' },
@@ -54,34 +55,34 @@ const RouteDisplay = ({navRoute, navigation}) => {
   
   return (
 
-    <View style={[styles.routeContainer]} >
+    <View style={[routesStyles.routeContainer]} >
       <View style={{ flexDirection: 'row', gap: 5, }}>
 
         <View style={{ flex: 0 }}>
-          <Text style={[styles.bold, styles.routeTitle]}>To: </Text>
-          <Text style={[styles.bold, styles.routeTitle]}>From:</Text>
+          <Text style={[styles.bold, routesStyles.routeTitle]}>To: </Text>
+          <Text style={[styles.bold, routesStyles.routeTitle]}>From:</Text>
         </View>
 
         {/*Origin & Destination Text*/}
         <View style={{ flex: 1 }}>
-          <Text style={[styles.routeTitle]}>{navRoute.origin}</Text>
-          <Text style={[styles.routeTitle]}>{navRoute.destination}</Text>
+          <Text style={[routesStyles.routeTitle]}>{navRoute.origin}</Text>
+          <Text style={[routesStyles.routeTitle]}>{navRoute.destination}</Text>
         </View>
 
         {/*Travel Time*/}
-        <View style={[styles.travelTimeContainer, { alignSelf: 'flex-end' }]}>
+        <View style={[routesStyles.travelTimeContainer, { alignSelf: 'flex-end' }]}>
           <Text style={[styles.bold, { fontSize: 35, marginBottom: -5 }]}>{navRoute.travelTime}</Text>
           <Text>MINS</Text>
         </View>
       </View>
 
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 10}}>
-        <View style={[styles.mobilityIndicator]}>
+        <View style={[routesStyles.mobilityIndicator]}>
           <Text style={styles.textWhite}>{navRoute.mobilityLevel}</Text>
         </View>
         <TouchableOpacity style={[styles.goButtonContainer, { height: 'auto', alignSelf: 'flex-start', flexBasis: 100 }]} activeOpacity={0.9}
         onPress={()=> {navigation.navigate('Map', {navRoute})}}>
-          <Text style={styles.goButton}>
+          <Text style={styles.goButtonText}>
             GO
           </Text>
         </TouchableOpacity>

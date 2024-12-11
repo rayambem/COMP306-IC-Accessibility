@@ -1,7 +1,8 @@
 
 import React from 'react';
 import { View, Text, Modal, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
-import styles from './styles.js';
+import styles from './styles/global.js';
+import homeStyles from './styles/homeStyle.js';
 
 const AccessibilityNotices = ({ visible, onClose }) => {
   return (
@@ -11,32 +12,32 @@ const AccessibilityNotices = ({ visible, onClose }) => {
       visible={visible}
       onRequestClose={onClose}
     >
-      <View style={styles.modalBackground}>
-        <View style={styles.modalContainer}>
-        <View style={styles.modalHeader}>
+      <View style={homeStyles.modalBackground}>
+        <View style={homeStyles.modalContainer}>
+        <View style={homeStyles.modalHeader}>
             {/* Title and Date */}
             <View>
-              <Text style={styles.modalTitle}>Today's Notices:</Text>
-              <Text style={styles.modalDate}>November 8th, 2024</Text>
+              <Text style={homeStyles.modalTitle}>Today's Notices:</Text>
+              <Text style={homeStyles.modalDate}>November 8th, 2024</Text>
             </View>
             {/* Close button */}
             <TouchableOpacity onPress={onClose}>
-              <Text style={styles.closeButton}>✕</Text>
+              <Text style={homeStyles.closeButton}>✕</Text>
             </TouchableOpacity>
           </View>
 
           {/* Notice Content */}
-          <ScrollView style={styles.noticeContent}>
-            <View style={styles.noticeItem}>
-              <Text style={styles.noticeTitle}>Williams Hall - Elevator Outage</Text>
-              <Text style={styles.noticeDescription}>
+          <ScrollView style={homeStyles.noticeContent}>
+            <View style={homeStyles.noticeItem}>
+              <Text style={homeStyles.noticeTitle}>Williams Hall - Elevator Outage</Text>
+              <Text style={homeStyles.noticeDescription}>
                 The elevator at the north entrance of the building is OUT OF ORDER.
                 Alternative routing utilizes the elevator at the east entrance.
               </Text>
             </View>
-            <View style={styles.noticeItem}>
-              <Text style={styles.noticeTitle}>Upper Quads - Ongoing Construction</Text>
-              <Text style={styles.noticeDescription}>
+            <View style={homeStyles.noticeItem}>
+              <Text style={homeStyles.noticeTitle}>Upper Quads - Ongoing Construction</Text>
+              <Text style={homeStyles.noticeDescription}>
                 The accessible pathway behind Holmes Hall is currently closed due to ongoing construction.
                 Alternative routing goes around Rowland Hall for access.
               </Text>

@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, TextInput, ImageBackground} f
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
-import MapScreen from './Map'
+import MapScreen from './Map';
 import HomeScreen from './Home';
 import SavedRoutesScreen from './SavedRoutes';
 
@@ -12,6 +12,8 @@ const Tab = createBottomTabNavigator();
 
 
 export default function App() {
+  
+  
   return (
     <NavigationContainer>
       <Tab.Navigator

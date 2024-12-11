@@ -6,7 +6,8 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
-import styles from './styles.js';
+import styles from './styles/global.js';
+import mapStyles from './styles/mapStyle.js';
 
 export default function MapScreen({navigation, route}) {
 	const buildingData = [
@@ -28,16 +29,16 @@ export default function MapScreen({navigation, route}) {
 
 	return (
 		<View style={styles.container}>
-			<View style={styles.topButtonsContainer}>
-				<TouchableOpacity style={styles.topButton} activeOpacity={0.7}>
+			<View style={mapStyles.topButtonsContainer}>
+				<TouchableOpacity style={mapStyles.topButton} activeOpacity={0.7}>
 					<FontAwesome5 name="toilet" size={30} color="white" />
 				</TouchableOpacity>
-				<TouchableOpacity style={styles.topButton} activeOpacity={0.7}>
+				<TouchableOpacity style={mapStyles.topButton} activeOpacity={0.7}>
 					<FontAwesome5 name="building" size={30} color="white" />
 				</TouchableOpacity>
 			</View>
 			<MapView
-				style={[styles.map, { backgroundColor: '#E5E5E5' }]}  // Light gray background
+				style={[mapStyles.map, { backgroundColor: '#E5E5E5' }]}  // Light gray background
 				initialRegion={{
 					latitude: 42.4227,
 					longitude: -77.4949,
@@ -80,21 +81,21 @@ export default function MapScreen({navigation, route}) {
 					</Marker>
 				))}
 			</MapView>
-			<View style={styles.bottomMenu}>
+			<View style={mapStyles.bottomMenu}>
 				<TextInput
-					style={styles.buildingSearchBar}
+					style={mapStyles.buildingSearchBar}
 					placeholder='Search for starting point...'
 				/>
 				<TextInput
-					style={styles.buildingSearchBar}
+					style={mapStyles.buildingSearchBar}
 					placeholder='Search for destination...'
 				/>
-				<TouchableOpacity style={[styles.goButtonContainer, {marginTop:8}] } activeOpacity={0.9}>
-					<Text style={styles.goButton}>
+				<TouchableOpacity style={[mapStyles.goButtonContainer, {marginTop:8}] } activeOpacity={0.9}>
+					<Text style={styles.goButtonText}>
 						GO
 					</Text>
 				</TouchableOpacity>
-				<View style={styles.menuLinks}>
+				<View style={mapStyles.menuLinks}>
 					<TouchableOpacity style={{flex:1, flexDirection:'row', gap: 3, justifyContent: 'center'}} activeOpacity={0.9}>
 						<Text style={{textDecorationLine: 'underline', color: '#013159'}}>Share</Text>
 						<FontAwesome5 name="share" size={14} color="#013159" />
@@ -108,8 +109,8 @@ export default function MapScreen({navigation, route}) {
 						<FontAwesome name="bookmark" size={14} color="#013159" />
 					</TouchableOpacity>
 				</View>
-				<TouchableOpacity style={styles.fpButtonContainer} activeOpacity={0.9}>
-					<Text style={styles.fpButton}>
+				<TouchableOpacity style={mapStyles.fpButtonContainer} activeOpacity={0.9}>
+					<Text style={mapStyles.fpButton}>
 						View Floor Plans
 					</Text>
 				</TouchableOpacity>

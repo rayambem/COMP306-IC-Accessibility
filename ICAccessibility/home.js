@@ -3,7 +3,8 @@ import React, {useState} from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, ImageBackground} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import AccessibilityNotices from './AccessibilityNotices.js';
-import styles from './styles.js';
+import styles from './styles/global.js';
+import homeStyles from './styles/homeStyle.js';
 
 const HomeScreen = ({navigation, route}) => {
 
@@ -22,10 +23,10 @@ const HomeScreen = ({navigation, route}) => {
         </View>
 
         {/* Accessibility Notices */}
-        <TouchableOpacity style={styles.noticeBox} onPress={() => setModalVisible(true)}>
-          <Text style={styles.noticeText}>Accessibility Notices</Text>
-          <View style={styles.noticeCircle}>
-            <Text style={styles.noticeCount}>3</Text>
+        <TouchableOpacity style={homeStyles.noticeBox} onPress={() => setModalVisible(true)}>
+          <Text style={homeStyles.noticeText}>Accessibility Notices</Text>
+          <View style={homeStyles.noticeCircle}>
+            <Text style={homeStyles.noticeCount}>3</Text>
           </View>
         </TouchableOpacity>
 
@@ -42,7 +43,7 @@ const HomeScreen = ({navigation, route}) => {
         </View>
 
         {/* Go Button */}
-        <TouchableOpacity style={styles.goButton}>
+        <TouchableOpacity style={[styles.goButtonContainer,{width:'85%', marginTop:20}]}>
           <Text style={styles.goButtonText}>GO</Text>
         </TouchableOpacity>
 
