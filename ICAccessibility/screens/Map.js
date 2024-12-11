@@ -8,6 +8,7 @@ import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 import styles from '../styles/styles';
+import { useFontSize } from './FontSize';
 
 export default function MapScreen({navigation, route}) {
     const [location, setLocation] = useState(null);
@@ -15,6 +16,8 @@ export default function MapScreen({navigation, route}) {
 
 	const [origin, setOrigin] = useState(null);
 	const [destination, setDestination] = useState(null);
+
+    const { fontSize, toggleFontSize } = useFontSize();
 
     const buildingData = [
         { id: 1, name: 'Williams', latitude: 42.42266727826489, longitude: -76.49517372389519 },
@@ -92,44 +95,44 @@ export default function MapScreen({navigation, route}) {
                         description={`Location of ${building.name}`}
                     >
                         <View style={styles.markerLabelContainer}>
-                            <Text style={styles.markerLabelText}>{building.name}</Text>
+                            <Text style={[styles.markerLabelText, styles[fontSize]]}>{building.name}</Text>
                         </View>
                     </Marker>
                 ))}
             </MapView>
             <View style={styles.bottomMenu}>
 				<TextInput
-					style={styles.buildingSearchBar}
+					style={[styles.buildingSearchBar, styles[fontSize]]}
 					value={origin}
 					placeholder='Search for starting point...'
 				/>
 				<TextInput
-					style={styles.buildingSearchBar}
+					style={[styles.buildingSearchBar, styles[fontSize]]}
 					value={destination}
 					placeholder='Search for destination...'
 				/>
 				<TouchableOpacity style={[styles.goButtonContainer, {marginTop:8}] } activeOpacity={0.9}>
-					<Text style={styles.goButton}>
+					<Text style={[styles.goButton, styles[fontSize]]}>
 						GO
 					</Text>
 				</TouchableOpacity>
 
 				<View style={styles.menuLinks}>
 					<TouchableOpacity style={{flex:1, flexDirection:'row', gap: 3, justifyContent: 'center'}} activeOpacity={0.9}>
-						<Text style={{textDecorationLine: 'underline', color: '#013159'}}>Share</Text>
+						<Text style={[{textDecorationLine: 'underline', color: '#013159'}, styles[fontSize]]}>Share</Text>
 						<FontAwesome5 name="share" size={14} color="#013159" />
 					</TouchableOpacity>
 					<TouchableOpacity style={{flex:1, flexDirection:'row', gap: 3, justifyContent: 'center'}} activeOpacity={0.9}>
-						<Text style={{textDecorationLine: 'underline', color: '#013159'}}>Print</Text>
+						<Text style={[{textDecorationLine: 'underline', color: '#013159'}, styles[fontSize]]}>Print</Text>
 						<MaterialIcons name="local-print-shop" size={18} color="#013159" />
 					</TouchableOpacity>
 					<TouchableOpacity style={{flex:1, flexDirection:'row', gap: 3, justifyContent: 'center'}} activeOpacity={0.9}>
-						<Text style={{textDecorationLine: 'underline', color: '#013159', height: 20}}>Save</Text>
+						<Text style={[{textDecorationLine: 'underline', color: '#013159', height: 20}, styles[fontSize]]}>Save</Text>
 						<FontAwesome name="bookmark" size={14} color="#013159" />
 					</TouchableOpacity>
 				</View>
 
-				<TouchableOpacity style={styles.fpButtonContainer} activeOpacity={0.9}>
+				<TouchableOpacity style={[styles.fpButtonContainer, styles[fontSize]]} activeOpacity={0.9}>
 					<Text style={styles.fpButton}>
 						View Floor Plans
 					</Text>

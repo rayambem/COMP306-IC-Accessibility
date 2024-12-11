@@ -325,6 +325,13 @@ textCenter: {
 textWhite: {
 	color:'white',
 },
+Normal: {
+    fontSize: 16,
+  },
+
+  Large: {
+    fontSize: 24,
+  },
 });
 
 export default styles;

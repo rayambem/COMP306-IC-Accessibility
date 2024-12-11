@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Switch, FlatList, ImageBackground, fontSize } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { useFontSize } from './FontSize';
 
 // Background image URL
 let pic = { uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEZ2rLMNmedcJfmp3cQEr_AZ2N2ICL8deY4lwcFuu-yrWGy6aBcKZXkFM&s' };
@@ -11,7 +12,10 @@ const SettingsScreen = ({ navigation }) => {
   const [isHighContrast, setHighContrast] = useState(false);
   const [isMapLabels, setMapLabels] = useState(false);
   const [isSatelliteView, setSatelliteView] = useState(false);
-  const [fontSize, setFontSize] = useState('Normal');
+//   const [fontSize, setFontSize] = useState('Normal');
+  const { fontSize, toggleFontSize } = useFontSize(); 
+
+
 
   return (
     <ImageBackground source={pic} style={styles.backgroundImage} imageStyle={{ resizeMode: 'contain' }}>
@@ -19,26 +23,27 @@ const SettingsScreen = ({ navigation }) => {
         {/* Header */}
 
         <View style={styles.header}>
-          <Text style={styles.headerTitle}>Ithaca College</Text>
+          <Text style={[styles.headerTitle, styles[fontSize]]}>Ithaca College</Text>
         </View>
 
-        <Text style={[styles.sectionHeader]}>Settings</Text>
+        <Text style={[[styles.sectionHeader, styles[fontSize]]]}>Settings</Text>
 
 
         {/* Font Size */}
          <View style={styles.settingOption}>
-           <Text style={styles.label}>Change Font Size</Text>
+           <Text style={[styles.label, styles[fontSize]]}>Change Font Size</Text>
            <TouchableOpacity
              style={styles.button}
-             onPress={() => setFontSize(fontSize === 'normal' ? 'large' : 'normal')}
-           >
+        //      onPress={() => setFontSize(fontSize === 'normal' ? 'large' : 'normal')}
+        //    >
+        onPress={toggleFontSize}>
             <Text style={styles.buttonText}>{fontSize}</Text>
            </TouchableOpacity>
          </View>
 
         {/* Settings Options */}
         <View style={styles.settingOption}>
-          <Text style={styles.label}>Toggle High Contrast</Text>
+          <Text style={[styles.label, styles[fontSize]]}>Toggle High Contrast</Text>
           <Switch
             value={isHighContrast}
             onValueChange={setHighContrast}
@@ -47,7 +52,7 @@ const SettingsScreen = ({ navigation }) => {
         </View>
 
         <View style={styles.settingOption}>
-          <Text style={styles.label}>Toggle Map Labels</Text>
+          <Text style={[styles.label, styles[fontSize]]}>Toggle Map Labels</Text>
           <Switch
             value={isMapLabels}
             onValueChange={setMapLabels}
@@ -56,7 +61,7 @@ const SettingsScreen = ({ navigation }) => {
         </View>
 
         <View style={styles.settingOption}>
-          <Text style={styles.label}>Toggle Satellite View</Text>
+          <Text style={[styles.label, styles[fontSize]]}>Toggle Satellite View</Text>
           <Switch
             value={isSatelliteView}
             onValueChange={setSatelliteView}
@@ -120,6 +125,13 @@ settingOption: {
   },
   label: {
     fontSize: 16,
+  },
+  Normal: {
+    fontSize: 16,
+  },
+
+  Large: {
+    fontSize: 24,
   },
 });
 

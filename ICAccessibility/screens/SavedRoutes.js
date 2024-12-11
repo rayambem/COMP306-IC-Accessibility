@@ -6,12 +6,15 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
 import AccessibilityNotices from './AccessibilityNotices.js';
 import styles from '../styles/styles.js';
+import { useFontSize } from './FontSize';
 
 const SavedRoutesScreen = ({navigation, route}) => {
   const routes = [{ id: 1, origin: 'Park School', destination: 'williams Hall', travelTime: 3, mobilityLevel: 'Full Mobility' },
   { id: 2, origin: 'Emerson Suites', destination: 'Dillingham Center', travelTime: 10, mobilityLevel: 'Limited Mobility' }
   ];
   const [modalVisible, setModalVisible] = useState(false);
+
+  const { fontSize, toggleFontSize } = useFontSize(); 
   
   let pic = { uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEZ2rLMNmedcJfmp3cQEr_AZ2N2ICL8deY4lwcFuu-yrWGy6aBcKZXkFM&s' };
 
@@ -21,6 +24,7 @@ const SavedRoutesScreen = ({navigation, route}) => {
     return (
       <RouteDisplay navRoute={item}
         navigation={navigation} //Pass navigation to allow the Go button to switch Screens
+        fontSize={fontSize}
       />
     )
   }
@@ -31,10 +35,10 @@ const SavedRoutesScreen = ({navigation, route}) => {
 
         {/* Header */}
         <View style={styles.header}>
-          <Text style={styles.headerTitle}>Ithaca College</Text>
+          <Text style={[styles.headerTitle, styles[fontSize]]}>Ithaca College</Text>
         </View>
 
-        <Text style={[styles.sectionHeader]}>Saved Routes</Text>
+        <Text style={[styles.sectionHeader, styles[fontSize]]}>Saved Routes</Text>
 
         <FlatList
           style={{width:'85%'}}
@@ -50,7 +54,7 @@ const SavedRoutesScreen = ({navigation, route}) => {
   );
 };
 
-const RouteDisplay = ({navRoute, navigation}) => {
+const RouteDisplay = ({navRoute, navigation, fontSize}) => {
   
   return (
 
@@ -58,14 +62,14 @@ const RouteDisplay = ({navRoute, navigation}) => {
       <View style={{ flexDirection: 'row', gap: 5, }}>
 
         <View style={{ flex: 0 }}>
-          <Text style={[styles.bold, styles.routeTitle]}>To: </Text>
-          <Text style={[styles.bold, styles.routeTitle]}>From:</Text>
+          <Text style={[styles.bold, styles.routeTitle, styles[fontSize] ]}>To: </Text>
+          <Text style={[styles.bold, styles.routeTitle, styles[fontSize]]}>From:</Text>
         </View>
 
         {/*Origin & Destination Text*/}
         <View style={{ flex: 1 }}>
-          <Text style={[styles.routeTitle]}>{navRoute.origin}</Text>
-          <Text style={[styles.routeTitle]}>{navRoute.destination}</Text>
+          <Text style={[styles.routeTitle, styles[fontSize]]}>{navRoute.origin}</Text>
+          <Text style={[styles.routeTitle, styles[fontSize]]}>{navRoute.destination}</Text>
         </View>
 
         {/*Travel Time*/}
