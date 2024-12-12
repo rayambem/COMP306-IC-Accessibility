@@ -1,0 +1,29 @@
+[
+    {
+        "origin": "Williams",
+        "destination": "Park School",
+        "keyPoints": [
+            {
+                "coordinates": [42.42277757485111, -76.49479434711151],
+                "instructions": "Exit the building from the main East-facing doors"
+            },
+            {
+               "coordinates": [42.42277757485111, -76.49479434711151],
+                "instructions": "Go down the ramp on the right and across the crosswalk\nTurn left once directly outside Egbert Hall"
+            },
+            {
+                "coordinates": [42.42271612131169, -76.49455847433035],
+                "instructions": "Move straight on the path right next to the parking lot"
+            },
+            {
+                "coordinates": [42.42336479452345, -76.49485447154589],
+                "instructions": "Take a left at the steps right in front of the Park School to go down the ramp"
+            },
+            {
+                "coordinates": [42.423405763139655, -76.49508571937245],
+                "instructions": "Take a left at the steps right in front of the Park School to go down the ramp"
+            }
+        ],
+        "duration": 3
+    }
+]
