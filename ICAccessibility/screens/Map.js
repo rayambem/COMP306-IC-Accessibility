@@ -3,9 +3,9 @@ import MapView, { UrlTile, Marker, Callout } from 'react-native-maps';
 import { StyleSheet, TextInput, TouchableOpacity, View, Text, Alert } from 'react-native';
 import * as Location from 'expo-location'; // Properly import Location
 
-import allRoutes from '../localStorage/routeData.json'
+import allRoutes from '../localStorage/routeData.json';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+//import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';

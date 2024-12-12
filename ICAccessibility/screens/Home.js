@@ -17,7 +17,7 @@ let pic = { uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEZ2rLMN
 return (
 
 	<ImageBackground source={pic} style={styles.backgroundImage} imageStyle={{ resizeMode: 'contain' }}>
-	<View style={styles.container}>
+	<View style={[styles.container,{rowGap:50}]}>
 		
 		{/* Header */}
 		<View style={styles.header}>
@@ -45,7 +45,7 @@ return (
 		</View>
 
 		{/* Go Button */}
-		<TouchableOpacity style={styles.goButton}>
+		<TouchableOpacity style={[styles.goButtonContainer, {width:'80%'}]}>
 		<Text style={styles.goButtonText}>GO</Text>
 		</TouchableOpacity>
 
