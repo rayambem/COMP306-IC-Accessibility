@@ -6,6 +6,8 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import MapScreen from './screens/Map'
 import HomeScreen from './screens/Home';
 import SavedRoutesScreen from './screens/SavedRoutes';
+import SettingsScreen from './screens/Settings';
+import { FontSizeProvider } from './screens/FontSize';
 
 
 const Tab = createBottomTabNavigator();
@@ -15,6 +17,7 @@ export default function App() {
   
   
   return (
+    <FontSizeProvider> 
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={({ route }) => ({
@@ -29,6 +32,9 @@ export default function App() {
             } else if (route.name === 'Routes') {
               iconName = focused ? 'list' : 'list-outline';
             }
+            else if (route.name === 'Settings') {
+              iconName = 'settings-outline'; 
+            }
   
            return <Icon name={iconName} size={size} color={color} />;
           },
@@ -41,8 +47,10 @@ export default function App() {
         <Tab.Screen name="Home" component={HomeScreen} />
         <Tab.Screen name="Map" component={MapScreen} />
         <Tab.Screen name="Routes" component={SavedRoutesScreen} />
+        <Tab.Screen name="Settings" component={SettingsScreen} />
       </Tab.Navigator>
     </NavigationContainer>
+    </FontSizeProvider>
   );
 }
 
