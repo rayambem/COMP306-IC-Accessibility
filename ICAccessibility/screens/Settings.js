@@ -15,8 +15,6 @@ const SettingsScreen = ({ navigation }) => {
 //   const [fontSize, setFontSize] = useState('Normal');
   const { fontSize, toggleFontSize } = useFontSize(); 
 
-
-
   return (
     <ImageBackground source={pic} style={styles.backgroundImage} imageStyle={{ resizeMode: 'contain' }}>
       <View style={[styles.mainContainer]}>
@@ -73,7 +71,7 @@ const SettingsScreen = ({ navigation }) => {
   );
 };
 
-
+//hi
 const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
