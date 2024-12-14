@@ -1,0 +1,51 @@
+[
+    {
+        "id":1,
+        "type":"bathroom",
+        "name":"Park 1st Floor Bathroom",
+        "gender":"mw",
+        "coordinates": [42.4242463,-76.4946709]
+    },
+    {
+        "id":2,
+        "type":"bathroom",
+        "name":"Park 2nd Floor Bathroom",
+        "gender":"u",
+        "coordinates": [42.4239672,-76.4952772]
+    }, 
+    {
+        "id":3,
+        "type":"bathroom",
+        "name":"Egbert 2nd Floor Bathroom",
+        "gender":"mw",
+        "coordinates": [42.422259,-76.4943776]
+    }, 
+    {
+        "id":4,
+        "type":"bathroom",
+        "name":"Egbert 2nd Floor Unisex Bathroom",
+        "gender":"u",
+        "coordinates": [42.4222128,-76.4942745]
+    }, 
+    {
+        "id":5,
+        "type":"bathroom",
+        "name":"Williams 1st Floor Bathroom",
+        "gender":"mw",
+        "coordinates": [42.4226687,-76.495149]
+    }, 
+    {
+        "id":6,
+        "type":"bathroom",
+        "name":"Williams 3rd Floor Bathroom",
+        "gender":"u",
+        "coordinates": [42.4226669,-76.4952569]
+    }, 
+    {
+        "id":7,
+        "type":"bathroom",
+        "name":"Williams 3rd Floor Bathroom",
+        "gender":"u",
+        "coordinates": [42.4226384,-76.4952458]
+    }
+]

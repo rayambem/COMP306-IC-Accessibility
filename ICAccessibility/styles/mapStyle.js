@@ -91,6 +91,21 @@ const mapStyles = StyleSheet.create({
         fontSize: 12,
         fontWeight: 'bold',
     },
+    toggleSlash: {
+        position: 'absolute',
+        transform: [{rotateZ: '45deg'}],
+        zIndex:10,
+        backgroundColor: 'white',
+        borderWidth:4,
+        height:"90%",
+        borderRadius:10,
+        borderColor: '#013159',
+        width: 12,
+        transformOrigin: 'bottom left',
+        left:6,
+        bottom:15,
+        
+    }
 });
 
 export default mapStyles;

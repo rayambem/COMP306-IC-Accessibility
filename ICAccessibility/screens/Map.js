@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import MapView, { UrlTile, Marker, Callout } from 'react-native-maps';
-import { StyleSheet, TextInput, TouchableOpacity, View, Text, Alert } from 'react-native';
+import { StyleSheet, TextInput, TouchableOpacity, View, Text, Alert,Animated,useAnimatedValue } from 'react-native';
 import * as Location from 'expo-location'; // Properly import Location
 
-import allRoutes from '../localStorage/routeData.json';
+import BathroomMarker from './markers/bathroom.js';
+import ToggleButton from '../ToggleButton.js'
 
+import allRoutes from '../localStorage/routeData.json';
+import pois from '../localStorage/pointsOfIntest.json';
 //import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
@@ -13,6 +17,7 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 import styles from '../styles/styles';
 import { useFontSize } from './FontSize';
+import mapStyles from '../styles/mapStyle.js';
 
 export default function MapScreen({navigation, route}) {
     const [location, setLocation] = useState(null);
@@ -26,6 +31,9 @@ export default function MapScreen({navigation, route}) {
     const [currentLocationID, setCurrentLocationID] = useState(0);
     const [navigationMode, setNavigationMode] = useState(false);
 
+    const [showBathrooms, setShowBathrooms] = useState(true);
+    const [showBuildings, setShowBuildings] = useState(true);
+    
     const { fontSize, toggleFontSize } = useFontSize();
 
     const buildingData = [
@@ -73,15 +81,25 @@ export default function MapScreen({navigation, route}) {
         setNavigationMode(true);
     }
 
+    const toggleBathrooms = () => {
+        setShowBathrooms(!showBathrooms);
+    }
+
+    const toggleBuildings = () => {
+        setShowBuildings(!showBuildings);
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.topButtonsContainer}>
-                <TouchableOpacity style={styles.topButton} activeOpacity={0.7}>
+                
+                <ToggleButton toggleState={showBathrooms} onPress={toggleBathrooms}>
                     <FontAwesome5 name="toilet" size={30} color="white" />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.topButton} activeOpacity={0.7}>
+                </ToggleButton>
+
+                <ToggleButton toggleState={showBuildings} onPress={toggleBuildings}>
                     <FontAwesome5 name="building" size={30} color="white" />
-                </TouchableOpacity>
+                </ToggleButton>
             </View>
             <MapView
                 style={styles.map}
@@ -96,13 +114,43 @@ export default function MapScreen({navigation, route}) {
 				mapType="hybrid"
 				// liteMode={true}     // Enable lite mode
             >
-                {buildingData.map((building) => (
+                {/*Render POIs (bathrooms only for now, but has multi-catagory support*/}
+                {pois != [] ?
+                    pois.map((poi) => {
+                        
+                        //Skip bathrooms when they are hidden
+                        if (!showBathrooms && poi.type === "bathroom") {
+                            return null;
+                        }
+
+                        return(
+                        <Marker
+                        key={poi.id}
+                        coordinate={{ 
+                            latitude: poi.coordinates[0], 
+                            longitude: poi.coordinates[1]
+                        }}
+                        zIndex={1}
+                        onPress={() => {
+                        }}
+                    >   
+                        {/*TODO: Add support for other POIs*/}
+
+                        <BathroomMarker poi={poi}></BathroomMarker>
+                    </Marker>
+                    )})
+                : null}
+
+                {showBuildings ?
+                
+                buildingData.map((building) => (
                     <Marker
                         key={building.id}
                         coordinate={{ 
                             latitude: building.latitude, 
                             longitude: building.longitude 
                         }}
+                        zIndex={2}
                         // description={`Location of ${building.name}`}
                         onPress={() => {
                             console.log('Marker tapped');
@@ -113,7 +161,11 @@ export default function MapScreen({navigation, route}) {
                             <Text style={[styles.markerLabelText, styles[fontSize]]}>{building.name}</Text>
                         </View>
                     </Marker>
-                ))}
+                )):
+                null}
+
+               
+
 
                 {keyLocations != [] ?
                     keyLocations.map((location, id) => (
