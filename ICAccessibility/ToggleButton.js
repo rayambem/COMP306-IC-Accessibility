@@ -1,6 +1,6 @@
 import React, { Children } from 'react';
 import { View, Text, Modal, TouchableOpacity, StyleSheet, ScrollView, Animated, useAnimatedValue } from 'react-native';
-import styles from './styles/styles.js';
+import styles from './styles/global.js';
 import mapStyles from './styles/mapStyle.js';
 
 ToggleButton = (props) => {
@@ -36,9 +36,9 @@ ToggleButton = (props) => {
 
     return (
         <TouchableOpacity style={styles.topButton} activeOpacity={0.7} onPress={toggle}>
-                    {props.children}
-                    <Animated.View style={[mapStyles.toggleSlash, {transform: [{rotateZ: '45deg'},{scaleY: aniHeight}]}]}></Animated.View>
-                </TouchableOpacity>
+            {props.children}
+            <Animated.View style={[mapStyles.toggleSlash, {transform: [{rotateZ: '45deg'},{scaleY: aniHeight}]}]}></Animated.View>
+        </TouchableOpacity>
     );
 }
 

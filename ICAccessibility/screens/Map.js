@@ -15,7 +15,7 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
-import styles from '../styles/styles';
+import styles from '../styles/global.js';
 import { useFontSize } from './FontSize';
 import mapStyles from '../styles/mapStyle.js';
 
@@ -91,7 +91,7 @@ export default function MapScreen({navigation, route}) {
 
     return (
         <View style={styles.container}>
-            <View style={styles.topButtonsContainer}>
+            <View style={mapStyles.topButtonsContainer}>
                 
                 <ToggleButton toggleState={showBathrooms} onPress={toggleBathrooms}>
                     <FontAwesome5 name="toilet" size={30} color="white" />
@@ -102,7 +102,7 @@ export default function MapScreen({navigation, route}) {
                 </ToggleButton>
             </View>
             <MapView
-                style={styles.map}
+                style={mapStyles.map}
                 initialRegion={initialRegion}
                 showsUserLocation={true}
                 showsMyLocationButton={true}
@@ -157,8 +157,8 @@ export default function MapScreen({navigation, route}) {
                             origin == null ? setOrigin(building.name) : setDestination(building.name)
                         }}
                     >
-                        <View style={styles.markerLabelContainer}>
-                            <Text style={[styles.markerLabelText, styles[fontSize]]}>{building.name}</Text>
+                        <View style={mapStyles.markerLabelContainer}>
+                            <Text style={[mapStyles.markerLabelText, styles[fontSize]]}>{building.name}</Text>
                         </View>
                     </Marker>
                 )):
@@ -186,24 +186,24 @@ export default function MapScreen({navigation, route}) {
 
             </MapView>
 
-            <View style={styles.bottomMenu}>
+            <View style={mapStyles.bottomMenu}>
 				<TextInput
-					style={[styles.buildingSearchBar, styles[fontSize]]}
+					style={[mapStyles.buildingSearchBar, styles[fontSize]]}
 					value={origin}
 					placeholder='Search for starting point...'
 				/>
 				<TextInput
-					style={[styles.buildingSearchBar, styles[fontSize]]}
+					style={[mapStyles.buildingSearchBar, styles[fontSize]]}
 					value={destination}
 					placeholder='Search for destination...'
 				/>
 				<TouchableOpacity style={[styles.goButtonContainer, {marginTop:8}] } activeOpacity={0.9}>
-					<Text style={[styles.goButton, styles[fontSize]]}>
+					<Text style={[styles.goButtonText]}>
 						GO
 					</Text>
 				</TouchableOpacity>
 
-				<View style={styles.menuLinks}>
+				<View style={mapStyles.menuLinks}>
 					<TouchableOpacity style={{flex:1, flexDirection:'row', gap: 3, justifyContent: 'center'}} activeOpacity={0.9}>
 						<Text style={[{textDecorationLine: 'underline', color: '#013159'}, styles[fontSize]]}>Share</Text>
 						<FontAwesome5 name="share" size={14} color="#013159" />
@@ -218,8 +218,8 @@ export default function MapScreen({navigation, route}) {
 					</TouchableOpacity>
 				</View>
 
-				<TouchableOpacity style={[styles.fpButtonContainer, styles[fontSize]]} activeOpacity={0.9}>
-					<Text style={styles.fpButton}>
+				<TouchableOpacity style={[mapStyles.fpButtonContainer, styles[fontSize]]} activeOpacity={0.9}>
+					<Text style={mapStyles.fpButton}>
 						View Floor Plans
 					</Text>
 				</TouchableOpacity>

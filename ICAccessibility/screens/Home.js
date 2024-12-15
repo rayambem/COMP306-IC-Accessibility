@@ -3,7 +3,8 @@ import React, {useState} from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, ImageBackground} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import AccessibilityNotices from './AccessibilityNotices.js';
-import styles from '../styles/styles.js';
+import styles from '../styles/global.js';
+import homeStyles from '../styles/homeStyle.js'
 import { Picker } from '@react-native-picker/picker';
 import { useFontSize } from './FontSize';
 
@@ -30,10 +31,10 @@ return (
 		</View>
 
 		{/* Accessibility Notices */}
-		<TouchableOpacity style={styles.noticeBox} onPress={() => setModalVisible(true)}>
-		<Text style={[styles.noticeText, styles[fontSize]]}>Accessibility Notices</Text>
-		<View style={styles.noticeCircle}>
-			<Text style={[styles.noticeCount, styles[fontSize]]}>3</Text>
+		<TouchableOpacity style={homeStyles.noticeBox} onPress={() => setModalVisible(true)}>
+		<Text style={[homeStyles.noticeText, styles[fontSize]]}>Accessibility Notices</Text>
+		<View style={homeStyles.noticeCircle}>
+			<Text style={[homeStyles.noticeCount, styles[fontSize]]}>3</Text>
 		</View>
 		</TouchableOpacity>
 
@@ -50,7 +51,7 @@ return (
 		</View>
 
 		{/* Go Button */}
-		<TouchableOpacity style={styles.goButton}>
+		<TouchableOpacity style={[styles.goButtonContainer, {width:'80%'}]}>
 		<Text style={[styles.goButtonText, styles[fontSize]]}>GO</Text>
 		</TouchableOpacity>
 

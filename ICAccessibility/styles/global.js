@@ -83,7 +83,17 @@ const styles = StyleSheet.create({
       color: '#FFFFFF',
       fontSize: 24,
     },
-    
+    topButton: {
+      color: 'white',
+      backgroundColor: '#013159',
+      width: 60,
+      height: 60,
+      borderRadius: 100,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderWidth: 1,
+      borderColor: 'white'
+    },
       
     bottomNav: {
         flexDirection: 'row',
