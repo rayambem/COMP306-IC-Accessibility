@@ -1,25 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import MapView, { UrlTile, Marker, Callout } from 'react-native-maps';
-import { StyleSheet, TextInput, TouchableOpacity, View, Text, Alert,Animated,useAnimatedValue } from 'react-native';
-import * as Location from 'expo-location'; // Properly import Location
+import { StyleSheet, TouchableOpacity, View, Text, Alert } from 'react-native';
+import DropDownPicker from 'react-native-dropdown-picker';
+import * as Location from 'expo-location'; 
 
 import BathroomMarker from './markers/bathroom.js';
-import ToggleButton from '../ToggleButton.js'
+import ToggleButton from '../ToggleButton.js';
 
 import allRoutes from '../localStorage/routeData.json';
 import pois from '../localStorage/pointsOfIntest.json';
-//import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
+import Feather from '@expo/vector-icons/Feather';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 import styles from '../styles/global.js';
 import { useFontSize } from './FontSize';
 import mapStyles from '../styles/mapStyle.js';
 
-export default function MapScreen({navigation, route}) {
+export default function MapScreen({ navigation, route }) {
     const [location, setLocation] = useState(null);
     const [errorMsg, setErrorMsg] = useState(null);
 
@@ -33,6 +33,13 @@ export default function MapScreen({navigation, route}) {
 
     const [showBathrooms, setShowBathrooms] = useState(true);
     const [showBuildings, setShowBuildings] = useState(true);
+
+    let pic = { uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEZ2rLMNmedcJfmp3cQEr_AZ2N2ICL8deY4lwcFuu-yrWGy6aBcKZXkFM&s' };
+
+    const [buildings, setBuildings] = useState([
+        { label: 'Williams', value: 'Williams' },
+        { label: 'Park School', value: 'Park School' },
+    ]);
     
     const { fontSize, toggleFontSize } = useFontSize();
 
@@ -40,6 +47,9 @@ export default function MapScreen({navigation, route}) {
         { id: 1, name: 'Williams', latitude: 42.42266727826489, longitude: -76.49517372389519 },
         { id: 2, name: 'Park School', latitude: 42.42409393043525, longitude: -76.49499966434016 },
     ];
+    
+    const [originOpen, setOriginOpen] = useState(false);
+    const [destinationOpen, setDestinationOpen] = useState(false);
 
     useEffect(() => {
         (async () => {
@@ -60,8 +70,7 @@ export default function MapScreen({navigation, route}) {
         })();
     }, []);
 
-    // Fallback to default location if user location can't be retrieved
-    const initialRegion = location 
+    const initialRegion = location
         ? {
             latitude: location.coords.latitude,
             longitude: location.coords.longitude,
@@ -88,7 +97,7 @@ export default function MapScreen({navigation, route}) {
     const toggleBuildings = () => {
         setShowBuildings(!showBuildings);
     }
-
+    
     return (
         <View style={styles.container}>
             <View style={mapStyles.topButtonsContainer}>
@@ -111,8 +120,8 @@ export default function MapScreen({navigation, route}) {
                 showsCompass={true}
                 showsTraffic={false}
                 // showsIndoors={false}
-				mapType="hybrid"
-				// liteMode={true}     // Enable lite mode
+                mapType="hybrid"
+                // liteMode={true}     // Enable lite mode
             >
                 {/*Render POIs (bathrooms only for now, but has multi-catagory support*/}
                 {pois != [] ?
@@ -164,7 +173,7 @@ export default function MapScreen({navigation, route}) {
                 )):
                 null}
 
-               
+                
 
 
                 {keyLocations != [] ?
@@ -187,43 +196,113 @@ export default function MapScreen({navigation, route}) {
             </MapView>
 
             <View style={mapStyles.bottomMenu}>
-				<TextInput
-					style={[mapStyles.buildingSearchBar, styles[fontSize]]}
-					value={origin}
-					placeholder='Search for starting point...'
-				/>
-				<TextInput
-					style={[mapStyles.buildingSearchBar, styles[fontSize]]}
-					value={destination}
-					placeholder='Search for destination...'
-				/>
-				<TouchableOpacity style={[styles.goButtonContainer, {marginTop:8}] } activeOpacity={0.9}>
-					<Text style={[styles.goButtonText]}>
-						GO
-					</Text>
-				</TouchableOpacity>
+            {!navigationMode ? (
+                <>
+                    {/* Non-Navigation Mode */}
+                    <DropDownPicker
+                        open={originOpen}
+                        value={origin}
+                        items={buildings}
+                        setOpen={setOriginOpen}
+                        setValue={setOrigin}
+                        setItems={setBuildings}
+                        placeholder="Select starting point"
+                        style={[mapStyles.dropdown, { zIndex: originOpen ? 1000 : 1 }]}
+                        containerStyle={{ zIndex: originOpen ? 1000 : 1 }}
+                        textStyle={{ fontSize: fontSize === 'large' ? 18 : 14 }}
+                    />
 
-				<View style={mapStyles.menuLinks}>
-					<TouchableOpacity style={{flex:1, flexDirection:'row', gap: 3, justifyContent: 'center'}} activeOpacity={0.9}>
-						<Text style={[{textDecorationLine: 'underline', color: '#013159'}, styles[fontSize]]}>Share</Text>
-						<FontAwesome5 name="share" size={14} color="#013159" />
-					</TouchableOpacity>
-					<TouchableOpacity style={{flex:1, flexDirection:'row', gap: 3, justifyContent: 'center'}} activeOpacity={0.9}>
-						<Text style={[{textDecorationLine: 'underline', color: '#013159'}, styles[fontSize]]}>Print</Text>
-						<MaterialIcons name="local-print-shop" size={18} color="#013159" />
-					</TouchableOpacity>
-					<TouchableOpacity style={{flex:1, flexDirection:'row', gap: 3, justifyContent: 'center'}} activeOpacity={0.9}>
-						<Text style={[{textDecorationLine: 'underline', color: '#013159', height: 20}, styles[fontSize]]}>Save</Text>
-						<FontAwesome name="bookmark" size={14} color="#013159" />
-					</TouchableOpacity>
-				</View>
+                    <DropDownPicker
+                        open={destinationOpen}
+                        value={destination}
+                        items={buildings}
+                        setOpen={setDestinationOpen}
+                        setValue={setDestination}
+                        setItems={setBuildings}
+                        placeholder="Select destination"
+                        style={[mapStyles.dropdown, { zIndex: destinationOpen ? 1000 : 1 }]}
+                        containerStyle={{ zIndex: destinationOpen ? 1000 : 1 }}
+                        textStyle={{ fontSize: fontSize === 'large' ? 18 : 14 }}
+                    />
 
-				<TouchableOpacity style={[mapStyles.fpButtonContainer, styles[fontSize]]} activeOpacity={0.9}>
-					<Text style={mapStyles.fpButton}>
-						View Floor Plans
-					</Text>
-				</TouchableOpacity>
-			</View>
+                    <View style={mapStyles.menuLinks}>
+                        <TouchableOpacity
+                            style={{ flex: 1, flexDirection: 'row', gap: 3, justifyContent: 'center' }}
+                            activeOpacity={0.9}
+                            onPress={() => {
+                                setOrigin(null);
+                                setDestination(null);
+                            }}
+                        >
+                            <Text style={[{ textDecorationLine: 'underline', color: '#013159' }, styles[fontSize]]}>
+                                Clear selections
+                            </Text>
+                            <Feather name="x" size={18} color="black" />
+                        </TouchableOpacity>
+                        <TouchableOpacity style={{ flex: 1, flexDirection: 'row', gap: 3, justifyContent: 'center' }} activeOpacity={0.9}>
+                            <Text style={[{ textDecorationLine: 'underline', color: '#013159', height: 20 }, styles[fontSize]]}>
+                                Save
+                            </Text>
+                            <FontAwesome name="bookmark" size={14} color="#013159" />
+                        </TouchableOpacity>
+                    </View>
+
+                    <TouchableOpacity
+                        style={[styles.goButtonContainer, { marginTop: 0 }]}
+                        activeOpacity={0.9}
+                        onPress={() => {
+                            if (origin && destination) {
+                                fetchRoute(origin, destination);
+                            } else {
+                                Alert.alert('Error', 'Please select both origin and destination');
+                            }
+                        }}
+                    >
+                        <Text style={[styles.goButtonText]}>GO</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={[mapStyles.fpButtonContainer, styles[fontSize]]} activeOpacity={0.9}>
+                        <Text style={mapStyles.fpButton}>View Floor Plans</Text>
+                    </TouchableOpacity>
+                </>
+            ) : (
+                <>
+                    {/* Navigation Mode */}
+                    <Text>{currentInstruction}</Text>
+                    <View style={{ flexDirection: 'row', gap: 5 }}>
+                        <TouchableOpacity
+                            style={[mapStyles.fpButtonContainer, styles[fontSize], {width: 100}]}
+                            activeOpacity={0.9}
+                            onPress={() => {
+                                setCurrentLocationID((prevID) => {
+                                    const newID = Math.max(prevID - 1, 0);
+                                    setCurrentInstruction(keyLocations[newID]?.instructions || '');
+                                    if (newID === 0) setNavigationMode(false);
+                                    return newID;
+                                });
+                            }}
+                        >
+                            <Text style={mapStyles.fpButton}>{"< Previous"}</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={[mapStyles.fpButtonContainer, styles[fontSize], {width: 100}]}
+                            activeOpacity={0.9}
+                            onPress={() => {
+                                setCurrentLocationID((prevID) => {
+                                    const newID = Math.min(prevID + 1, keyLocations.length - 1);
+                                    setCurrentInstruction(keyLocations[newID]?.instructions || '');
+                                    if (newID === keyLocations.length - 1) setNavigationMode(false);
+                                    return newID;
+                                });
+                            }}
+                        >
+                            <Text style={mapStyles.fpButton}>{"Next >"}</Text>
+                        </TouchableOpacity>
+                    </View>
+                </>
+            )}
         </View>
-    );
+
+    </View>
+);
 }

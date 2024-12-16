@@ -30,12 +30,13 @@ const mapStyles = StyleSheet.create({
         position: 'absolute',
         bottom: 0,
         width: '80%',
-        height: 320,
+        height: 'auto',
         backgroundColor: '#fff',
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
         alignItems: 'center',
         padding: 15,
+        marginBottom: 80,
         gap: 8
     },
     buildingSearchBar: {
@@ -63,7 +64,7 @@ const mapStyles = StyleSheet.create({
         color: '#fff'
     },
     menuLinks: {
-        marginTop: 10,
+        marginTop: 3,
         flexDirection: 'row',
         gap: 20,
         height: 30,
