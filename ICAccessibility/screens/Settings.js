@@ -12,8 +12,17 @@ const SettingsScreen = ({ navigation }) => {
   const [isHighContrast, setHighContrast] = useState(false);
   const [isMapLabels, setMapLabels] = useState(false);
   const [isSatelliteView, setSatelliteView] = useState(false);
-//   const [fontSize, setFontSize] = useState('Normal');
-  const { fontSize, toggleFontSize } = useFontSize(); 
+  //const [fontSize, setFontSize] = useState('Normal');
+  const { fontSize, toggleFontSize, mapType, toggleMapType  } = useFontSize(); 
+
+  const handleSatelliteToggle = (value) => {
+    setSatelliteView(value);
+    toggleMapType(); 
+    navigation.setOptions({
+      mapType: value ? 'satellite' : 'standard',
+    });
+  };
+
 
   return (
     <ImageBackground source={pic} style={styles.backgroundImage} imageStyle={{ resizeMode: 'contain' }}>
@@ -61,9 +70,10 @@ const SettingsScreen = ({ navigation }) => {
         <View style={styles.settingOption}>
           <Text style={[styles.label, styles[fontSize]]}>Toggle Satellite View</Text>
           <Switch
+ 
             value={isSatelliteView}
-            onValueChange={setSatelliteView}
-            thumbColor={isSatelliteView ? 'royalblue' : 'gray'}
+    onValueChange={handleSatelliteToggle} // Call handler to toggle satellite view
+    thumbColor={isSatelliteView ? 'royalblue' : 'gray'}
           />
         </View>
       </View>

@@ -17,7 +17,8 @@ export default function MapScreen({navigation, route}) {
 	const [origin, setOrigin] = useState(null);
 	const [destination, setDestination] = useState(null);
 
-    const { fontSize, toggleFontSize } = useFontSize();
+    const { fontSize, toggleFontSize, mapType } = useFontSize();
+
 
     const buildingData = [
         { id: 1, name: 'Williams', latitude: 42.42266727826489, longitude: -76.49517372389519 },
@@ -45,6 +46,7 @@ export default function MapScreen({navigation, route}) {
         })();
     }, []);
 
+
     // Fallback to default location if user location can't be retrieved
     const initialRegion = location 
         ? {
@@ -60,7 +62,10 @@ export default function MapScreen({navigation, route}) {
             longitudeDelta: 0.01,
         };
 
+
     return (
+        
+        
         <View style={styles.container}>
             <View style={styles.topButtonsContainer}>
                 <TouchableOpacity style={styles.topButton} activeOpacity={0.7}>
@@ -80,7 +85,8 @@ export default function MapScreen({navigation, route}) {
                 showsCompass={true}
                 showsTraffic={false}
                 // showsIndoors={false}
-				mapType="hybrid"
+				//mapType="hybrid"
+                mapType={mapType}
 				// liteMode={true}     // Enable lite mode
             >
 
