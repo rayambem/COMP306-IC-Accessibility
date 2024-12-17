@@ -7,14 +7,14 @@ import HomeScreen from './screens/Home';
 import SavedRoutesScreen from './screens/SavedRoutes';
 import SettingsScreen from './screens/Settings';
 import { FontSizeProvider } from './screens/FontSize';
-import { RoutesProvider } from './contexts/RoutesContext'; // Import the RoutesProvider
+import { RoutesProvider } from './contexts/RoutesContext';
 
 const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
     <FontSizeProvider> 
-      <RoutesProvider> {/* Wrap the whole app in RoutesProvider */}
+      <RoutesProvider>
         <NavigationContainer>
           <Tab.Navigator
             screenOptions={({ route }) => ({
@@ -45,7 +45,7 @@ export default function App() {
             <Tab.Screen name="Settings" component={SettingsScreen} />
           </Tab.Navigator>
         </NavigationContainer>
-      </RoutesProvider> {/* Close RoutesProvider */}
+      </RoutesProvider>
     </FontSizeProvider>
   );
 }

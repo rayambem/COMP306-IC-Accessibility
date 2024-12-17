@@ -23,6 +23,6 @@ export const FontSizeProvider = ({ children }) => {
     </FontSize.Provider>
   );
 };
-//lol
-// Custom Hook to use FontSizeContext
+
+
 export const useFontSize = () => useContext(FontSize);
