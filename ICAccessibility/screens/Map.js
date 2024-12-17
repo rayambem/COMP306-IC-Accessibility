@@ -12,8 +12,13 @@ import pois from '../localStorage/pointsOfIntest.json';
 
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
+import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import Feather from '@expo/vector-icons/Feather';
+import { Entypo } from '@expo/vector-icons';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useRoutes } from '../contexts/RoutesContext.js';
 
 import styles from '../styles/global.js';
 import { useFontSize } from './FontSize';
@@ -84,10 +89,44 @@ export default function MapScreen({ navigation, route }) {
             longitudeDelta: 0.01,
         };
 
-    const fetchRoute = function(origin, destination){
-        setKeyLocations(allRoutes[0].keyPoints);
-        setCurrentInstruction(allRoutes[0].keyPoints[0].instructions)
-        setNavigationMode(true);
+    const fetchRoute = function(origin, destination) {
+        const route = allRoutes.find(route => route.origin === origin && route.destination === destination);
+        
+        if (route) {
+            setKeyLocations(route.keyPoints);
+            setCurrentInstruction(route.keyPoints[0].instructions);
+            setNavigationMode(true);
+        } else {
+            Alert.alert('Error', 'Route not found. Please ensure the origin and destination are correct.');
+        }
+    }
+
+    const { addRoute } = useRoutes();
+
+    const saveRoute = async (origin, destination) => {
+        try {
+            const fullRouteDetails = allRoutes.find(
+                r => r.origin === origin && r.destination === destination
+            );
+
+            if (!fullRouteDetails) {
+                Alert.alert('Error', 'Route details not found');
+                return;
+            }
+
+            const newRoute = { 
+                id: Date.now(), 
+                ...fullRouteDetails,
+                savedDate: new Date().toLocaleDateString() 
+            }; 
+
+            addRoute(newRoute);
+
+            Alert.alert('Route Saved', 'Your route has been successfully saved.');
+        } catch (error) {
+            Alert.alert('Error', 'An error occurred while saving the route.');
+            console.error(error);
+        }
     }
 
     const toggleBathrooms = () => {
@@ -121,39 +160,61 @@ export default function MapScreen({ navigation, route }) {
                 showsTraffic={false}
                 // showsIndoors={false}
                 mapType="hybrid"
-                // liteMode={true}     // Enable lite mode
+                // liteMode={true}
             >
-                {/*Render POIs (bathrooms only for now, but has multi-catagory support*/}
-                {pois != [] ?
+            
+            {navigationMode &&
+                keyLocations.map((location, id) => (
+                    <Marker
+                        key={id}
+                        coordinate={{
+                            latitude: location.coordinates[0],
+                            longitude: location.coordinates[1],
+                        }}
+                        onPress={() => {
+                            setCurrentInstruction(location.instructions);
+                            setCurrentLocationID(id);
+                        }}
+                        icon={null}
+                    >
+                        <View style={{ alignItems: 'center', justifyContent: 'center', margin: 0, padding: 0 }}>
+                            <FontAwesome5
+                                name="map-pin"
+                                size={currentLocationID === id ? 50 : 30}
+                                color={currentLocationID === id ? 'yellow' : 'red'}
+                            />
+                        </View>
+                    </Marker>
+                ))
+            }
+
+                {!navigationMode &&
                     pois.map((poi) => {
-                        
-                        //Skip bathrooms when they are hidden
-                        if (!showBathrooms && poi.type === "bathroom") {
+                        // Skip bathrooms when they are hidden
+                        if (!showBathrooms && poi.type === 'bathroom') {
                             return null;
                         }
 
-                        return(
+                        return (
+                            <Marker
+                                key={poi.id}
+                                coordinate={{
+                                    latitude: poi.coordinates[0],
+                                    longitude: poi.coordinates[1],
+                                }}
+                                zIndex={1}
+                                onPress={() => {}}
+                            >
+                                <BathroomMarker poi={poi} />
+                            </Marker>
+                        );
+                    })}
+
+                {/* Render buildings only when navigationMode is false */}
+                {!navigationMode &&
+                    showBuildings &&
+                    buildingData.map((building) => (
                         <Marker
-                        key={poi.id}
-                        coordinate={{ 
-                            latitude: poi.coordinates[0], 
-                            longitude: poi.coordinates[1]
-                        }}
-                        zIndex={1}
-                        onPress={() => {
-                        }}
-                    >   
-                        {/*TODO: Add support for other POIs*/}
-
-                        <BathroomMarker poi={poi}></BathroomMarker>
-                    </Marker>
-                    )})
-                : null}
-
-                {showBuildings ?
-                
-                buildingData.map((building) => (
-                    <Marker
                         key={building.id}
                         coordinate={{ 
                             latitude: building.latitude, 
@@ -170,29 +231,7 @@ export default function MapScreen({ navigation, route }) {
                             <Text style={[mapStyles.markerLabelText, styles[fontSize]]}>{building.name}</Text>
                         </View>
                     </Marker>
-                )):
-                null}
-
-                
-
-
-                {keyLocations != [] ?
-                    keyLocations.map((location, id) => (
-                        <Marker
-                        key={id}
-                        coordinate={{ 
-                            latitude: location.coordinates[0], 
-                            longitude: location.coordinates[1]
-                        }}
-                        zIndex={1000}
-                        onPress={() => {setCurrentInstruction(location.instructions)
-                            console.log(currentInstruction)
-                        }}
-                    >
-                    </Marker>
-                    ))
-                : null}
-
+                    ))}
             </MapView>
 
             <View style={mapStyles.bottomMenu}>
@@ -239,7 +278,17 @@ export default function MapScreen({ navigation, route }) {
                             </Text>
                             <Feather name="x" size={18} color="black" />
                         </TouchableOpacity>
-                        <TouchableOpacity style={{ flex: 1, flexDirection: 'row', gap: 3, justifyContent: 'center' }} activeOpacity={0.9}>
+                        <TouchableOpacity
+                            style={{ flex: 1, flexDirection: 'row', gap: 3, justifyContent: 'center' }}
+                            activeOpacity={0.9}
+                            onPress={() => {
+                                if (origin && destination) {
+                                    saveRoute(origin, destination);
+                                } else {
+                                    Alert.alert('Error', 'Please select both origin and destination');
+                                }
+                            }}
+                        >
                             <Text style={[{ textDecorationLine: 'underline', color: '#013159', height: 20 }, styles[fontSize]]}>
                                 Save
                             </Text>
@@ -285,13 +334,21 @@ export default function MapScreen({ navigation, route }) {
                             <Text style={mapStyles.fpButton}>{"< Previous"}</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
-                            style={[mapStyles.fpButtonContainer, styles[fontSize], {width: 100}]}
+                            style={[mapStyles.fpButtonContainer, styles[fontSize], { width: 100 }]}
                             activeOpacity={0.9}
                             onPress={() => {
                                 setCurrentLocationID((prevID) => {
-                                    const newID = Math.min(prevID + 1, keyLocations.length - 1);
+                                    const newID = prevID + 1;
+                                    if (newID >= keyLocations.length) {
+                                        // Reset navigation mode when reaching the last point
+                                        setNavigationMode(false);
+                                        setKeyLocations([]);
+                                        setCurrentInstruction(null);
+                                        setCurrentLocationID(0);
+                                        Alert.alert("Navigation Complete", "You have reached your destination.");
+                                        return 0; // Reset to initial ID
+                                    }
                                     setCurrentInstruction(keyLocations[newID]?.instructions || '');
-                                    if (newID === keyLocations.length - 1) setNavigationMode(false);
                                     return newID;
                                 });
                             }}

@@ -10,8 +10,8 @@ const HomeScreen = ({ navigation, route }) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [originBuilding, setOriginBuilding] = useState(null);
     const [destinationBuilding, setDestinationBuilding] = useState(null);
-    const [openOrigin, setOpenOrigin] = useState(false); // Control dropdown visibility
-    const [openDestination, setOpenDestination] = useState(false); // Control dropdown visibility
+    const [openOrigin, setOpenOrigin] = useState(false);
+    const [openDestination, setOpenDestination] = useState(false);
     const { fontSize, toggleFontSize } = useFontSize();
 
     let pic = { uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEZ2rLMNmedcJfmp3cQEr_AZ2N2ICL8deY4lwcFuu-yrWGy6aBcKZXkFM&s' };
