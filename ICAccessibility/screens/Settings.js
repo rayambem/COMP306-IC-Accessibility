@@ -32,27 +32,27 @@ const SettingsScreen = ({ navigation }) => {
         {/* Header */}
 
         <View style={styles.header}>
-          <Text style={[styles.headerTitle, styles[fontSize]]}>Ithaca College</Text>
+          <Text style={[styles.headerTitle, {fontSize: fontSize === 'Large' ? 22 : 16}]}>Ithaca College</Text>
         </View>
 
-        <Text style={[[styles.sectionHeader, styles[fontSize]]]}>Settings</Text>
+        <Text style={[styles.sectionHeader, {fontSize: fontSize === 'Large' ? 22 : 16}]}>Settings</Text>
 
 
         {/* Font Size */}
          <View style={settingsStyles.settingOption}>
-           <Text style={[settingsStyles.label, styles[fontSize]]}>Change Font Size</Text>
+           <Text style={[settingsStyles.label, {fontSize: fontSize === 'Large' ? 22 : 16}]}>Change Font Size</Text>
            <TouchableOpacity
              style={settingsStyles.button}
         //      onPress={() => setFontSize(fontSize === 'normal' ? 'large' : 'normal')}
         //    >
         onPress={toggleFontSize}>
-            <Text style={settingsStyles.buttonText}>{fontSize}</Text>
+            <Text style={[settingsStyles.buttonText, {fontSize: fontSize === 'Large' ? 22 : 16}]}>{fontSize}</Text>
            </TouchableOpacity>
          </View>
 
         {/* Settings Options */}
         <View style={settingsStyles.settingOption}>
-          <Text style={[settingsStyles.label, styles[fontSize]]}>Toggle High Contrast</Text>
+          <Text style={[settingsStyles.label, {fontSize: fontSize === 'Large' ? 22 : 16}]}>Toggle High Contrast</Text>
           <Switch
             value={isHighContrast}
             onValueChange={setHighContrast}
@@ -61,7 +61,7 @@ const SettingsScreen = ({ navigation }) => {
         </View>
 
         <View style={settingsStyles.settingOption}>
-          <Text style={[settingsStyles.label, styles[fontSize]]}>Toggle Map Labels</Text>
+          <Text style={[settingsStyles.label, {fontSize: fontSize === 'Large' ? 22 : 16}]}>Toggle Map Labels</Text>
           <Switch
             value={isMapLabels}
             onValueChange={setMapLabels}
@@ -70,7 +70,7 @@ const SettingsScreen = ({ navigation }) => {
         </View>
 
         <View style={settingsStyles.settingOption}>
-          <Text style={[settingsStyles.label, styles[fontSize]]}>Toggle Satellite View</Text>
+          <Text style={[settingsStyles.label, {fontSize: fontSize === 'Large' ? 22 : 16}]}>Toggle Satellite View</Text>
           <Switch
  
             value={isSatelliteView}

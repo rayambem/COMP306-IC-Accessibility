@@ -21,7 +21,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRoutes } from '../contexts/RoutesContext.js';
 
 import styles from '../styles/global.js';
-import { useFontSize } from './FontSize';
+import { useFontSize } from './FontSize.js';
 import mapStyles from '../styles/mapStyle.js';
 
 export default function MapScreen({ navigation, route }) {
@@ -42,8 +42,8 @@ export default function MapScreen({ navigation, route }) {
     let pic = { uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEZ2rLMNmedcJfmp3cQEr_AZ2N2ICL8deY4lwcFuu-yrWGy6aBcKZXkFM&s' };
 
     const [buildings, setBuildings] = useState([
-        { label: 'Williams', value: 'Williams' },
-        { label: 'Park School', value: 'Park School' },
+        { label: 'Williams (Starting point)', value: 'Williams' },
+        { label: 'Park School (Destination)', value: 'Park School' },
     ]);
     
     const { fontSize, toggleFontSize, mapType } = useFontSize();
@@ -190,7 +190,7 @@ export default function MapScreen({ navigation, route }) {
                 showsCompass={true}
                 showsTraffic={false}
                 // showsIndoors={false}
-                mapType="hybrid"
+                mapType={mapType}
                 // liteMode={true}
             >
             
@@ -212,7 +212,7 @@ export default function MapScreen({ navigation, route }) {
                             <FontAwesome5
                                 name="map-pin"
                                 size={currentLocationID === id ? 50 : 30}
-                                color={currentLocationID === id ? 'yellow' : 'red'}
+                                color={currentLocationID === id ? (mapType !== "satellite" ? "blue" : "yellow") : 'red'}
                             />
                         </View>
                     </Marker>
@@ -259,7 +259,7 @@ export default function MapScreen({ navigation, route }) {
                         }}
                     >
                         <View style={mapStyles.markerLabelContainer}>
-                            <Text style={[mapStyles.markerLabelText, styles[fontSize]]}>{building.name}</Text>
+                            <Text style={[mapStyles.markerLabelText, {fontSize: fontSize === 'Large' ? 20 : 14}]}>{building.name}</Text>
                         </View>
                     </Marker>
                     ))}
@@ -279,7 +279,7 @@ export default function MapScreen({ navigation, route }) {
                         placeholder="Select starting point"
                         style={[mapStyles.dropdown, { zIndex: originOpen ? 1000 : 1 }]}
                         containerStyle={{ zIndex: originOpen ? 1000 : 1 }}
-                        textStyle={{ fontSize: fontSize === 'large' ? 18 : 14 }}
+                        textStyle={{ fontSize: fontSize === 'Large' ? 18 : 14 }}
                     />
 
                     <DropDownPicker
@@ -292,7 +292,7 @@ export default function MapScreen({ navigation, route }) {
                         placeholder="Select destination"
                         style={[mapStyles.dropdown, { zIndex: destinationOpen ? 1000 : 1 }]}
                         containerStyle={{ zIndex: destinationOpen ? 1000 : 1 }}
-                        textStyle={{ fontSize: fontSize === 'large' ? 18 : 14 }}
+                        textStyle={{ fontSize: fontSize === 'Large' ? 18 : 14 }}
                     />
 
                     <View style={mapStyles.menuLinks}>
@@ -304,7 +304,7 @@ export default function MapScreen({ navigation, route }) {
                                 setDestination(null);
                             }}
                         >
-                            <Text style={[{ textDecorationLine: 'underline', color: '#013159' }, styles[fontSize]]}>
+                            <Text style={[{ textDecorationLine: 'underline', color: '#013159' }, {fontSize: fontSize === 'Large' ? 18 : 14}]}>
                                 Clear selections
                             </Text>
                             <Feather name="x" size={18} color="black" />
@@ -320,7 +320,7 @@ export default function MapScreen({ navigation, route }) {
                                 }
                             }}
                         >
-                            <Text style={[{ textDecorationLine: 'underline', color: '#013159', height: 20 }, styles[fontSize]]}>
+                            <Text style={[{ textDecorationLine: 'underline', color: '#013159', height: 20 }, {fontSize: fontSize === 'Large' ? 18 : 14}]}>
                                 Save
                             </Text>
                             <FontAwesome name="bookmark" size={14} color="#013159" />
@@ -338,7 +338,7 @@ export default function MapScreen({ navigation, route }) {
                             }
                         }}
                     >
-                        <Text style={[styles.goButtonText]}>GO</Text>
+                        <Text style={[styles.goButtonText, {fontSize: fontSize === 'Large' ? 30 : 20}]}>GO</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity style={[mapStyles.fpButtonContainer, styles[fontSize]]} activeOpacity={0.9}>
@@ -348,7 +348,7 @@ export default function MapScreen({ navigation, route }) {
             ) : (
                 <>
                     {/* Navigation Mode */}
-                    <Text>{currentInstruction}</Text>
+                    <Text style={{fontSize: fontSize === 'Large' ? 18 : 14}}>{currentInstruction}</Text>
                     <View style={{ flexDirection: 'row', gap: 5 }}>
                         <TouchableOpacity
                             style={[mapStyles.fpButtonContainer, styles[fontSize], {width: 100}]}
@@ -362,7 +362,7 @@ export default function MapScreen({ navigation, route }) {
                                 });
                             }}
                         >
-                            <Text style={mapStyles.fpButton}>{"< Previous"}</Text>
+                            <Text style={[mapStyles.fpButton, {fontSize: fontSize === 'Large' ? 18 : 14}]}>{"< Previous"}</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={[mapStyles.fpButtonContainer, styles[fontSize], { width: 100 }]}
@@ -384,7 +384,7 @@ export default function MapScreen({ navigation, route }) {
                                 });
                             }}
                         >
-                            <Text style={mapStyles.fpButton}>{"Next >"}</Text>
+                            <Text style={[mapStyles.fpButton, {fontSize: fontSize === 'Large' ? 18 : 14}]}>{"Next >"}</Text>
                         </TouchableOpacity>
                     </View>
                 </>

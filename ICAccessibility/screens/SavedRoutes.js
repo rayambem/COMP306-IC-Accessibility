@@ -51,9 +51,9 @@ return (
 	<View style={[styles.mainContainer]}>
 		{/* Header */}
 		<View style={[styles.header, { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }]}>
-		<Text style={[styles.headerTitle, styles[fontSize]]}>Ithaca College</Text>
+		<Text style={[styles.headerTitle, {fontSize: fontSize === 'Large' ? 20 : 14}]}>Ithaca College</Text>
 		</View>
-		<Text style={[styles.sectionHeader, styles[fontSize]]}>Saved Routes</Text>
+		<Text style={[styles.sectionHeader, {fontSize: fontSize === 'Large' ? 30 : 20}]}>Saved Routes</Text>
 		<FlatList
 		style={{width:'85%'}}
 		data={savedRoutes}
@@ -90,33 +90,33 @@ return (
 	</TouchableOpacity>
 	<View style={{ flexDirection: 'row', gap: 5 }}>
 		<View style={{ flex: 0 }}>
-		<Text style={[styles.bold, routeStyles.routeTitle, styles[fontSize]]}>To: </Text>
-		<Text style={[styles.bold, routeStyles.routeTitle, styles[fontSize]]}>From:</Text>
+		<Text style={[styles.bold, routeStyles.routeTitle, {fontSize: fontSize === 'Large' ? 22 : 16}]}>To: </Text>
+		<Text style={[styles.bold, routeStyles.routeTitle, {fontSize: fontSize === 'Large' ? 22 : 16}]}>From:</Text>
 		</View>
 
 		{/*Origin & Destination Text*/}
 		<View style={{ flex: 1 }}>
-		<Text style={[routeStyles.routeTitle, styles[fontSize]]}>{navRoute.origin}</Text>
-		<Text style={[routeStyles.routeTitle, styles[fontSize]]}>{navRoute.destination}</Text>
+		<Text style={[routeStyles.routeTitle, {fontSize: fontSize === 'Large' ? 22 : 16}]}>{navRoute.origin}</Text>
+		<Text style={[routeStyles.routeTitle, {fontSize: fontSize === 'Large' ? 22 : 16}]}>{navRoute.destination}</Text>
 		</View>
 
 		{/*Travel Time*/}
 		<View style={[routeStyles.travelTimeContainer, { alignSelf: 'flex-end' }]}>
-		<Text style={[styles.bold, { fontSize: 35, marginBottom: -5 }]}>{navRoute.duration || navRoute.travelTime || 0}</Text>
+		<Text style={[styles.bold, { fontSize: fontSize === 'Large' ? 35 : 28, marginBottom: -5 }]}>{navRoute.duration || navRoute.travelTime || 0}</Text>
 		<Text>MINS</Text>
 		</View>
 
 	</View>
 	<View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 10 }}>
 		<View style={[routeStyles.mobilityIndicator]}>
-		<Text style={styles.textWhite}>{mobilityLevel}</Text>
+		<Text style={[styles.textWhite, {fontSize: fontSize === 'Large' ? 18 : 14}]}>{mobilityLevel}</Text>
 		</View>
 		<TouchableOpacity 
 		style={[styles.goButtonContainer, { height: 'auto', alignSelf: 'flex-start', flexBasis: 100 }]} 
 		activeOpacity={0.9}
 		onPress={() => navigation.navigate('Map', {navRoute})}
 		>
-		<Text style={styles.goButtonText}>
+		<Text style={[styles.goButtonText, {fontSize: fontSize === 'Large' ? 25 : 18}]}>
 			GO
 		</Text>
 		</TouchableOpacity>
