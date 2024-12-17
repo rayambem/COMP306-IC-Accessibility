@@ -5,7 +5,7 @@ import mapStyles from './styles/mapStyle.js';
 
 ToggleButton = (props) => {
 
-    const aniHeight = useAnimatedValue(0);
+    const aniHeight = useAnimatedValue(1);
 
     const slashIn = () => {
         Animated.timing(aniHeight, {

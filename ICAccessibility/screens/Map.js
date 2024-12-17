@@ -37,8 +37,36 @@ export default function MapScreen({navigation, route}) {
     const { fontSize, toggleFontSize } = useFontSize();
 
     const buildingData = [
-        { id: 1, name: 'Williams', latitude: 42.42266727826489, longitude: -76.49517372389519 },
-        { id: 2, name: 'Park School', latitude: 42.42409393043525, longitude: -76.49499966434016 },
+        { id: 1, name: 'Williams', location: [42.42266727826489, -76.49517372389519] },
+        { id: 2, name: 'Park School', location: [42.42409393043525, -76.49499966434016] },
+        { id: 3,  name: 'Center for Natural Sciences', location: [42.423355,-76.495429]},
+        { id: 4,  name: 'Campus Center', location: [42.4223792,-76.4941679]},
+        { id: 5,  name: 'Hammond Health Center', location: [42.4230498,-76.4937854]},
+        { id: 6,  name: 'Muller', location: [42.4219757,-76.4957186]},
+        { id: 7,  name: 'Textor', location: [42.4218214,-76.4961915]},
+        { id: 8,  name: 'Friends', location: [42.4218123,-76.4967748]},
+        { id: 9,  name: 'Park Business Center', location: [42.4220959,-76.4971005]},
+        { id: 10,  name: 'Job', location: [42.421573,-76.4972152]},
+        { id: 11,  name: 'Dillingham', location: [42.4211253,-76.4983049]},
+        { id: 12,  name: 'Peggy Ryan Williams Center', location: [42.4217572,-76.4987242]},
+        { id: 13,  name: 'Smitty', location: [42.4203551,-76.4984903]},
+        { id: 14,  name: 'Center for Health Sciences', location: [42.4201203,-76.4979585]},
+        { id: 15,  name: 'Hill Center', location: [42.4205384,-76.4970762]},
+        { id: 16,  name: 'Whalen', location: [42.4210833,-76.4960277]},
+        { id: 17,  name: 'Gannett', location: [42.4212466,-76.4950494]},
+        { id: 18,  name: 'East Tower', location: [42.4206719,-76.4939682]},
+        { id: 19,  name: 'Tower Concourse', location: [42.4206278,-76.4944864]},
+        { id: 20,  name: 'West Tower', location: [42.4204983,-76.4950578]},
+        { id: 21,  name: 'Holmes', location: [42.4212331,-76.4938355]},
+        { id: 22,  name: 'Tallcott', location: [42.4212768,-76.4930033]},
+        { id: 23,  name: 'Rowland', location: [42.4214322,-76.4922503]},
+        { id: 24,  name: 'Hilliard', location: [42.4219268,-76.4925334]},
+        { id: 25,  name: 'Hood', location: [42.4217634,-76.4933581]},
+        { id: 26,  name: 'Fitness Center', location: [42.4225327,-76.4923509]},
+        { id: 27,  name: 'A&E Center', location: [42.422893,-76.4902083]},
+        { id: 28,  name: 'Hilliard', location: [42.4219268,-76.4925334]},
+        { id: 29,  name: 'Hood', location: [42.4217634,-76.4933581]},
+       
     ];
 
     useEffect(() => {
@@ -134,7 +162,7 @@ export default function MapScreen({navigation, route}) {
                         onPress={() => {
                         }}
                     >   
-                        {/*TODO: Add support for other POIs*/}
+                        {/*TODO: Add components for other POIs*/}
 
                         <BathroomMarker poi={poi}></BathroomMarker>
                     </Marker>
@@ -147,8 +175,8 @@ export default function MapScreen({navigation, route}) {
                     <Marker
                         key={building.id}
                         coordinate={{ 
-                            latitude: building.latitude, 
-                            longitude: building.longitude 
+                            latitude: building.location[0], 
+                            longitude: building.location[1] 
                         }}
                         zIndex={2}
                         // description={`Location of ${building.name}`}

@@ -7,7 +7,7 @@ const mapStyles = StyleSheet.create({
         gap: 10,
         zIndex: 8,
         position: 'absolute',
-        top: 60,
+        top: 20,
         left: 20,
     },
     topButton: {
