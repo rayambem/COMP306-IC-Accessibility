@@ -7,7 +7,7 @@ import * as Location from 'expo-location';
 import BathroomMarker from './markers/bathroom.js';
 import ToggleButton from '../ToggleButton.js';
 
-import allRoutes from '../localStorage/routeData.json';
+// import allRoutes from '../localStorage/routeData.json';
 import pois from '../localStorage/pointsOfIntest.json';
 
 import FontAwesome from '@expo/vector-icons/FontAwesome';
@@ -31,7 +31,7 @@ export default function MapScreen({ navigation, route }) {
 	const [origin, setOrigin] = useState(null);
 	const [destination, setDestination] = useState(null);
 
-    const [keyLocations, setKeyLocations] = useState(allRoutes[0].keyPoints);
+    const [keyLocations, setKeyLocations] = useState(null);
     const [currentInstruction, setCurrentInstruction] = useState(null);
     const [currentLocationID, setCurrentLocationID] = useState(0);
     const [navigationMode, setNavigationMode] = useState(false);
@@ -118,17 +118,25 @@ export default function MapScreen({ navigation, route }) {
             longitudeDelta: 0.01,
         };
 
-    const fetchRoute = function(origin, destination) {
-        const route = allRoutes.find(route => route.origin === origin && route.destination === destination);
+        const fetchRoute = async function(origin, destination) {
+            try {
+                const response = await fetch('https://api.npoint.io/090ae66851cc91cbb83e');
+                const allRoutes = await response.json(); // Parse the response as JSON
         
-        if (route) {
-            setKeyLocations(route.keyPoints);
-            setCurrentInstruction(route.keyPoints[0].instructions);
-            setNavigationMode(true);
-        } else {
-            Alert.alert('Error', 'Route not found. Please ensure the origin and destination are correct.');
+                const route = allRoutes.find(route => route.origin === origin && route.destination === destination);
+                
+                if (route) {
+                    setKeyLocations(route.keyPoints);
+                    setCurrentInstruction(route.keyPoints[0].instructions);
+                    setNavigationMode(true);
+                } else {
+                    Alert.alert('Error', 'Route not found. Please ensure the origin and destination are correct.');
+                }
+            } catch (error) {
+                console.error('Error fetching route data:', error);
+                Alert.alert('Error', 'Failed to fetch route data. Please try again later.');
+            }
         }
-    }
 
     const { addRoute } = useRoutes();
 
