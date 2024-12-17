@@ -1,72 +1,89 @@
-
-import React, {useState} from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, TextInput, ImageBackground} from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, TextInput } from 'react-native';
+import DropDownPicker from 'react-native-dropdown-picker';
 import AccessibilityNotices from './AccessibilityNotices.js';
 import styles from '../styles/global.js';
-import homeStyles from '../styles/homeStyle.js'
-import { Picker } from '@react-native-picker/picker';
+import homeStyles from '../styles/homeStyle.js';
 import { useFontSize } from './FontSize';
 
-const HomeScreen = ({navigation, route}) => {
+const HomeScreen = ({ navigation, route }) => {
+    const [modalVisible, setModalVisible] = useState(false);
+    const [originBuilding, setOriginBuilding] = useState(null);
+    const [destinationBuilding, setDestinationBuilding] = useState(null);
+    const [openOrigin, setOpenOrigin] = useState(false);
+    const [openDestination, setOpenDestination] = useState(false);
+    const { fontSize, toggleFontSize } = useFontSize();
 
-const [modalVisible, setModalVisible] = useState(false);
+    let pic = { uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEZ2rLMNmedcJfmp3cQEr_AZ2N2ICL8deY4lwcFuu-yrWGy6aBcKZXkFM&s' };
 
-const [originBuilding, setOriginBuilding] = useState(null);
+    const buildings = [
+        { label: 'Williams', value: 'Williams' },
+        { label: 'Park School', value: 'Park School' },
+        { label: 'Friends Hall', value: 'Friends Hall' },
+        { label: 'School of Business', value: 'School of Business' },
+        { label: 'Textor Hall', value: 'Textor Hall' },
+        { label: 'School of Music', value: 'School of Music' },
+        { label: 'Gannett Center', value: 'Gannett Center' },
+    ];
 
-const { fontSize, toggleFontSize } = useFontSize(); 
+    return (
+        <ImageBackground source={pic} style={styles.backgroundImage} imageStyle={{ resizeMode: 'contain' }}>
+            <View style={[styles.container, { rowGap: 50 }]}>
 
-//const { fontSize } = useFontSize(); 
+                {/* Header */}
+                <View style={styles.header}>
+                    <Text style={[styles.headerTitle, styles[fontSize]]}>Ithaca College</Text>
+                </View>
 
-let pic = { uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEZ2rLMNmedcJfmp3cQEr_AZ2N2ICL8deY4lwcFuu-yrWGy6aBcKZXkFM&s' };
+                {/* Accessibility Notices */}
+                <TouchableOpacity style={homeStyles.noticeBox} onPress={() => setModalVisible(true)}>
+                    <Text style={[homeStyles.noticeText, styles[fontSize]]}>Accessibility Notices</Text>
+                    <View style={homeStyles.noticeCircle}>
+                        <Text style={[homeStyles.noticeCount, styles[fontSize]]}>3</Text>
+                    </View>
+                </TouchableOpacity>
 
-return (
+                {/* Navigation Form */}
+                <View style={styles.form}>
+                    <Text style={[styles.formLabel, styles[fontSize]]}>Navigate from:</Text>
+                    <DropDownPicker
+                        open={openOrigin}
+                        value={originBuilding}
+                        items={buildings}
+                        setOpen={setOpenOrigin}
+                        setValue={setOriginBuilding}
+                        placeholder="Select Building"
+                        style={styles.dropdown}
+                        textStyle={styles.dropdownText}
+                    />
 
-	<ImageBackground source={pic} style={styles.backgroundImage} imageStyle={{ resizeMode: 'contain' }}>
-	<View style={[styles.container,{rowGap:50}]}>
-		
-		{/* Header */}
-		<View style={styles.header}>
-		<Text style={[styles.headerTitle, styles[fontSize]]}>Ithaca College</Text>
-		</View>
+                    <Text style={[styles.formLabel, styles[fontSize]]}>To:</Text>
+                    <DropDownPicker
+                        open={openDestination}
+                        value={destinationBuilding}
+                        items={buildings}
+                        setOpen={setOpenDestination}
+                        setValue={setDestinationBuilding}
+                        placeholder="Select Building"
+                        style={styles.dropdown}
+                        textStyle={styles.dropdownText}
+                    />
 
-		{/* Accessibility Notices */}
-		<TouchableOpacity style={homeStyles.noticeBox} onPress={() => setModalVisible(true)}>
-		<Text style={[homeStyles.noticeText, styles[fontSize]]}>Accessibility Notices</Text>
-		<View style={homeStyles.noticeCircle}>
-			<Text style={[homeStyles.noticeCount, styles[fontSize]]}>3</Text>
-		</View>
-		</TouchableOpacity>
+                    <Text style={[styles.formLabel, styles[fontSize]]}>Mobility:</Text>
+                    <TextInput style={styles.input} placeholder="Not available" editable={false} />
+                </View>
 
-		{/* Navigation Form */}
-		<View style={styles.form}>
-		<Text style={[styles.formLabel, styles[fontSize]]}>Navigate from:</Text>
-		<TextInput style={styles.input} placeholder="Building A" />
+                {/* Go Button */}
+                <TouchableOpacity style={[styles.goButtonContainer, { width: '80%' }]}>
+                    <Text style={[styles.goButtonText, styles[fontSize]]}>GO</Text>
+                </TouchableOpacity>
 
-		<Text style={[styles.formLabel, styles[fontSize]]}>To:</Text>
-		<TextInput style={styles.input} placeholder="Building B" />
+                {/* Accessibility Notices Modal */}
+                <AccessibilityNotices visible={modalVisible} onClose={() => setModalVisible(false)} />
 
-		<Text style={[styles.formLabel, styles[fontSize]]}>Mobility:</Text>
-		<TextInput style={styles.input} placeholder="Select Mobility" />
-		</View>
-
-		{/* Go Button */}
-		<TouchableOpacity style={[styles.goButtonContainer, {width:'80%'}]}>
-		<Text style={[styles.goButtonText, styles[fontSize]]}>GO</Text>
-		</TouchableOpacity>
-
-		{/* Accessibility Notices Modal */}
-		<AccessibilityNotices visible={modalVisible} onClose={() => setModalVisible(false)} />
-		
-		
-
-	</View>
-	</ImageBackground>
-
-	
-);
+            </View>
+        </ImageBackground>
+    );
 };
-
-
 
 export default HomeScreen;
