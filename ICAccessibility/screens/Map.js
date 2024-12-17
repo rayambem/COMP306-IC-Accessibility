@@ -46,7 +46,7 @@ export default function MapScreen({ navigation, route }) {
         { label: 'Park School', value: 'Park School' },
     ]);
     
-    const { fontSize, toggleFontSize } = useFontSize();
+    const { fontSize, toggleFontSize, mapType } = useFontSize();
 
     const buildingData = [
         { id: 1, name: 'Williams', location: [42.42266727826489, -76.49517372389519] },
@@ -102,6 +102,8 @@ export default function MapScreen({ navigation, route }) {
         })();
     }, []);
 
+
+    // Fallback to default location if user location can't be retrieved
     const initialRegion = location
         ? {
             latitude: location.coords.latitude,
@@ -165,6 +167,8 @@ export default function MapScreen({ navigation, route }) {
     }
     
     return (
+        
+        
         <View style={styles.container}>
             <View style={mapStyles.topButtonsContainer}>
                 
